@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +22,6 @@ import java.util.Map;
  * Created by heyanjing on 2018/8/21 14:37.
  * // HETODO: 2018/8/21 18:30 sql分页，hql分页，sql Map<String,Object>， sql List<Map<String,Object>>
  * // HETODO: 2018/8/21 18:30
- *
  */
 @Repository
 @Transactional
@@ -122,6 +122,22 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
         for (Object t : list) {
             this.delete(t);
         }
+    }
+    //*********************************************************findMapBySql*******************************************************************************************************************************
+
+    @Override
+    public List<Map<String,Object>> findMapBySql(String sql) {
+        return (List<Map<String, Object>>) this.createSqlQuery(sql, null, null).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+    }
+
+    @Override
+    public List<Map<String,Object>> findMapBySql(String sql, Object... params) {
+        return (List<Map<String, Object>>) this.createSqlQuery(sql, null, params).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+    }
+
+    @Override
+    public List<Map<String,Object>> findMapBySql(String sql, Map<String, ?> params) {
+        return (List<Map<String, Object>>) this.createSqlQuery(sql, null, params).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
     }
     //*********************************************************findBySql*******************************************************************************************************************************
 

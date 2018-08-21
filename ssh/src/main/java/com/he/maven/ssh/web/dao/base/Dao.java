@@ -11,7 +11,7 @@ public interface Dao<T, ID extends Serializable> {
 
     T getById(ID id);
 
-    <E> E getEntityById(ID id,Class<E> entity);
+    <E> E getEntityById(ID id, Class<E> entity);
 
     /**
      * 保存实体
@@ -70,6 +70,15 @@ public interface Dao<T, ID extends Serializable> {
      * @param list 实体集合
      */
     void deleteForBatch(List<?> list);
+
+
+    //*********************************************************findMapBySql*******************************************************************************************************************************
+
+    List<Map<String, Object>> findMapBySql(String sql);
+
+    List<Map<String, Object>> findMapBySql(String sql, Object... params);
+
+    List<Map<String, Object>> findMapBySql(String sql, Map<String, ?> params);
 
     //*********************************************************findBySql*******************************************************************************************************************************
     List<T> findBySql(String sql);
