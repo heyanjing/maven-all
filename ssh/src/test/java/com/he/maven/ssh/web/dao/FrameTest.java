@@ -20,7 +20,7 @@ import java.util.Map;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath*:spring/spring-base*.xml"})
 @Slf4j
-public class ProductDaoTest {
+public class FrameTest {
 
     @Autowired
     private ProductDao productDao;
@@ -55,9 +55,9 @@ public class ProductDaoTest {
 
     @Test
     public void getById() {
-        Product product = this.productDao.getById("7b2d86e2-8235-4f36-9d68-199135dff017");
+        Product product = this.productDao.getById("d45a74d2-7612-4b12-938d-7875b8cadc0e");
         log.error("{}",product);
-        Person person = this.productDao.getEntityById("da4a7dc2-fe92-4ed1-99ef-9f52e5c70ede",Person.class);
+        Person person = this.productDao.getEntityById("0da7f4d7-3391-43c7-9e78-cb75411ca2ec",Person.class);
         log.error("{}",person);
     }
     @Test
