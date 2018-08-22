@@ -1,4 +1,4 @@
-package com.he.maven;
+package com.he.maven.ssh;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -8,7 +8,7 @@ import org.junit.Test;
  * Created by heyanjing on 2018/8/21 12:50.
  */
 @Slf4j
-public class T {
+public class SimpleTest {
     String orderBy = "order by";
     String bracket = ")";
 

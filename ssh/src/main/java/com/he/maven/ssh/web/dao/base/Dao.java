@@ -8,11 +8,25 @@ import java.util.Map;
 
 /**
  * Created by heyanjing on 2018/8/21 14:37.
+ * mysql和oracle支持自动求数据条数
+ * sqlserver不支持自动求数据条数，需要用户自己提供查询条数sql
+ *
+ * @param <T>  实体
+ * @param <ID> id
+ * @author heyanjing
  */
 public interface Dao<T, ID extends Serializable> {
 
+    /**
+     * @param id 实体id
+     * @return null 或 实体
+     */
     T getById(ID id);
 
+    /**
+     * @param id 实体id
+     * @return null 或 实体
+     */
     <E> E getEntityById(ID id, Class<E> entity);
 
     /**
@@ -73,7 +87,6 @@ public interface Dao<T, ID extends Serializable> {
      */
     void deleteForBatch(List<?> list);
 
-    void temp();
     //*********************************************************getBySql*******************************************************************************************************************************
 
     T getBySql(String sql);
@@ -189,4 +202,5 @@ public interface Dao<T, ID extends Serializable> {
 
     int executeBySql(String sql, Object... params);
 
+    void temp();
 }

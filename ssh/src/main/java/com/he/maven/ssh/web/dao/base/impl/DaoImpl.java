@@ -22,8 +22,8 @@ import java.util.Map;
 
 /**
  * Created by heyanjing on 2018/8/21 14:37.
- * mysql和oracle支持自动求数据条数
- * sqlserver不支持自动求数据条数，需要用户自己提供查询条数sql
+ * // HEINFO:2018/8/22 17:29  mysql和oracle 分页时不需要传countSql；sqlserverx需要传 countSql
+ * // HEINFO:2018/8/22 17:29  单个对象的方法没有数据时返回null；多个对象的方法没有数据时返回[]
  *
  * @param <T>  实体
  * @param <ID> id
@@ -216,17 +216,17 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
 
     @Override
     public List<T> findBySql(String sql) {
-        return (List<T>) this.createSqlQuery(sql, this.entityClass).getResultList();
+        return (List<T>) this.createSqlQuery(sql, this.entityClass).list();
     }
 
     @Override
     public List<T> findBySql(String sql, Object... params) {
-        return (List<T>) this.createSqlQuery(sql, this.entityClass, params).getResultList();
+        return (List<T>) this.createSqlQuery(sql, this.entityClass, params).list();
     }
 
     @Override
     public List<T> findBySql(String sql, Map<String, ?> params) {
-        return (List<T>) this.createSqlQuery(sql, this.entityClass, params).getResultList();
+        return (List<T>) this.createSqlQuery(sql, this.entityClass, params).list();
     }
 
     private Query<?> createSqlQuery(String sql, Class<?> clazz, Object params) {
@@ -301,33 +301,33 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
 
     @Override
     public List<Map<String, Object>> findMapBySql(String sql) {
-        return (List<Map<String, Object>>) this.createSqlQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        return (List<Map<String, Object>>) this.createSqlQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
     }
 
     @Override
     public List<Map<String, Object>> findMapBySql(String sql, Object... params) {
-        return (List<Map<String, Object>>) this.createSqlQuery(sql, params).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        return (List<Map<String, Object>>) this.createSqlQuery(sql, params).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
     }
 
     @Override
     public List<Map<String, Object>> findMapBySql(String sql, Map<String, ?> params) {
-        return (List<Map<String, Object>>) this.createSqlQuery(sql, params).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).getResultList();
+        return (List<Map<String, Object>>) this.createSqlQuery(sql, params).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
     }
     //*********************************************************findStringBySql*******************************************************************************************************************************
 
     @Override
     public List<String> findStringBySql(String sql) {
-        return ((NativeQuery<String>) this.createSqlQuery(sql)).getResultList();
+        return ((NativeQuery<String>) this.createSqlQuery(sql)).list();
     }
 
     @Override
     public List<String> findStringBySql(String sql, Object... params) {
-        return ((NativeQuery<String>) this.createSqlQuery(sql, params)).getResultList();
+        return ((NativeQuery<String>) this.createSqlQuery(sql, params)).list();
     }
 
     @Override
     public List<String> findStringBySql(String sql, Map<String, ?> params) {
-        return ((NativeQuery<String>) this.createSqlQuery(sql, params)).getResultList();
+        return ((NativeQuery<String>) this.createSqlQuery(sql, params)).list();
     }
     //*********************************************************pageEntityBySql*******************************************************************************************************************************
 
@@ -377,17 +377,17 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
 
     @Override
     public <E> List<E> findEntityBySql(String sql, Class<E> entityClass) {
-        return (List<E>) this.createSqlQuery(sql).addEntity(entityClass).getResultList();
+        return (List<E>) this.createSqlQuery(sql).addEntity(entityClass).list();
     }
 
     @Override
     public <E> List<E> findEntityBySql(String sql, Class<E> entityClass, Object... params) {
-        return (List<E>) this.createSqlQuery(sql, params).addEntity(entityClass).getResultList();
+        return (List<E>) this.createSqlQuery(sql, params).addEntity(entityClass).list();
     }
 
     @Override
     public <E> List<E> findEntityBySql(String sql, Class<E> entityClass, Map<String, ?> params) {
-        return (List<E>) this.createSqlQuery(sql, params).addEntity(entityClass).getResultList();
+        return (List<E>) this.createSqlQuery(sql, params).addEntity(entityClass).list();
     }
 
     private NativeQuery<?> createSqlQuery(String sql, Object params) {
@@ -418,17 +418,17 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
 
     @Override
     public List<T> findByHql(String hql) {
-        return ((Query<T>) this.createHqlQuery(hql, this.entityClass)).getResultList();
+        return ((Query<T>) this.createHqlQuery(hql, this.entityClass)).list();
     }
 
     @Override
     public List<T> findByHql(String hql, Map<String, ?> params) {
-        return ((Query<T>) this.createHqlQuery(hql, this.entityClass, params)).getResultList();
+        return ((Query<T>) this.createHqlQuery(hql, this.entityClass, params)).list();
     }
 
     @Override
     public List<T> findByHql(String hql, Object... params) {
-        return ((Query<T>) this.createHqlQuery(hql, this.entityClass, params)).getResultList();
+        return ((Query<T>) this.createHqlQuery(hql, this.entityClass, params)).list();
     }
 
     private Query<?> createHqlQuery(String hql, Class<?> clazz, Object params) {
