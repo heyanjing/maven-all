@@ -20,6 +20,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product extends BaseEntityWithStringId{
+    private String personId;
     private String name;
     private Double price;
     private Long quantity;

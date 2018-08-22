@@ -1,5 +1,7 @@
 package com.he.maven.ssh.web.dao.base;
 
+import com.he.maven.ssh.bean.PageObject;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +13,7 @@ public interface Dao<T, ID extends Serializable> {
 
     T getById(ID id);
 
-    <E> E getEntityById(ID id,Class<E> entity);
+    <E> E getEntityById(ID id, Class<E> entity);
 
     /**
      * 保存实体
@@ -71,13 +73,83 @@ public interface Dao<T, ID extends Serializable> {
      */
     void deleteForBatch(List<?> list);
 
+    void temp();
+    //*********************************************************getBySql*******************************************************************************************************************************
+
+    T getBySql(String sql);
+
+    T getBySql(String sql, Object... params);
+
+    T getBySql(String sql, Map<String, ?> params);
+
+    //*********************************************************pageBySql*******************************************************************************************************************************
+
+    PageObject<T> pageBySql(String sql, Integer pageSize, Integer pageIndex);
+
+    PageObject<T> pageBySql(String sql, String countSql, Integer pageSize, Integer pageIndex);
+
+    PageObject<T> pageBySql(String sql, Integer pageSize, Integer pageIndex, Object... params);
+
+    PageObject<T> pageBySql(String sql, String countSql, Integer pageSize, Integer pageIndex, Object... params);
+
+    PageObject<T> pageBySql(String sql, Integer pageSize, Integer pageIndex, Map<String, ?> params);
+
+    PageObject<T> pageBySql(String sql, String countSql, Integer pageSize, Integer pageIndex, Map<String, ?> params);
     //*********************************************************findBySql*******************************************************************************************************************************
+
     List<T> findBySql(String sql);
 
     List<T> findBySql(String sql, Object... params);
 
     List<T> findBySql(String sql, Map<String, ?> params);
 
+    //*********************************************************getMapBySql*******************************************************************************************************************************
+
+    Map<String, Object> getMapBySql(String sql);
+
+    Map<String, Object> getMapBySql(String sql, Object... params);
+
+    Map<String, Object> getMapBySql(String sql, Map<String, ?> params);
+    //*********************************************************pageMapBySql*******************************************************************************************************************************
+
+    PageObject<Map<String, Object>> pageMapBySql(String sql, Integer pageSize, Integer pageIndex);
+
+    PageObject<Map<String, Object>> pageMapBySql(String sql, String countSql, Integer pageSize, Integer pageIndex);
+
+    PageObject<Map<String, Object>> pageMapBySql(String sql, Integer pageSize, Integer pageIndex, Object... params);
+
+    PageObject<Map<String, Object>> pageMapBySql(String sql, String countSql, Integer pageSize, Integer pageIndex, Object... params);
+
+    PageObject<Map<String, Object>> pageMapBySql(String sql, Integer pageSize, Integer pageIndex, Map<String, ?> params);
+
+    PageObject<Map<String, Object>> pageMapBySql(String sql, String countSql, Integer pageSize, Integer pageIndex, Map<String, ?> params);
+    //*********************************************************findMapBySql*******************************************************************************************************************************
+
+    List<Map<String, Object>> findMapBySql(String sql);
+
+    List<Map<String, Object>> findMapBySql(String sql, Object... params);
+
+    List<Map<String, Object>> findMapBySql(String sql, Map<String, ?> params);
+    //*********************************************************findStringBySql*******************************************************************************************************************************
+
+    List<String> findStringBySql(String sql);
+
+    List<String> findStringBySql(String sql, Object... params);
+
+    List<String> findStringBySql(String sql, Map<String, ?> params);
+    //*********************************************************pageEntityBySql*******************************************************************************************************************************
+
+    <E> PageObject<E> pageEntityBySql(String sql, Class<E> entityClass, Integer pageSize, Integer pageIndex);
+
+    <E> PageObject<E> pageEntityBySql(String sql, String countSql, Class<E> entityClass, Integer pageSize, Integer pageIndex);
+
+    <E> PageObject<E> pageEntityBySql(String sql, Class<E> entityClass, Integer pageSize, Integer pageIndex, Object... params);
+
+    <E> PageObject<E> pageEntityBySql(String sql, String countSql, Class<E> entityClass, Integer pageSize, Integer pageIndex, Object... params);
+
+    <E> PageObject<E> pageEntityBySql(String sql, Class<E> entityClass, Integer pageSize, Integer pageIndex, Map<String, ?> params);
+
+    <E> PageObject<E> pageEntityBySql(String sql, String countSql, Class<E> entityClass, Integer pageSize, Integer pageIndex, Map<String, ?> params);
     //*********************************************************findEntityBySql*******************************************************************************************************************************
 
     <E> List<E> findEntityBySql(String sql, Class<E> entityClass);
@@ -86,10 +158,35 @@ public interface Dao<T, ID extends Serializable> {
 
     <E> List<E> findEntityBySql(String sql, Class<E> entityClass, Map<String, ?> params);
 
+    //*********************************************************getByHql*******************************************************************************************************************************
+
+    T getByHql(String hql);
+
+    T getByHql(String hql, Map<String, ?> params);
+
+    T getByHql(String hql, Object... params);
     //*********************************************************findByHql*******************************************************************************************************************************
+
     List<T> findByHql(String hql);
 
     List<T> findByHql(String hql, Map<String, ?> params);
 
     List<T> findByHql(String hql, Object... params);
+
+    //*********************************************************count*******************************************************************************************************************************
+
+    long count(String sql);
+
+    long count(String sql, Map<String, ?> params);
+
+    long count(String sql, Object... params);
+
+    //*********************************************************executeBySql*******************************************************************************************************************************
+
+    int executeBySql(String sql);
+
+    int executeBySql(String sql, Map<String, ?> params);
+
+    int executeBySql(String sql, Object... params);
+
 }
