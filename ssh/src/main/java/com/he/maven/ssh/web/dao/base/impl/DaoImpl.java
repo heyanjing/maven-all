@@ -376,7 +376,6 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
         return ((Query<T>) this.createHqlQuery(hql, this.entityClass, params)).uniqueResult();
     }
     //*********************************************************findByHql*******************************************************************************************************************************
-    @Override
     public List<T> findByHql(String hql) {
         return ((Query<T>) this.createHqlQuery(hql, this.entityClass, null)).getResultList();
     }
