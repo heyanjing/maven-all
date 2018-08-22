@@ -135,49 +135,49 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
 
     //*********************************************************getBySql*******************************************************************************************************************************
 
-    public T getBySql(String sql) {
+    protected T getBySql(String sql) {
         return (T) this.createSqlQuery(sql, this.entityClass).uniqueResult();
     }
 
-    public T getBySql(String sql, Object... params) {
+    protected T getBySql(String sql, Object... params) {
         return (T) this.createSqlQuery(sql, this.entityClass, params).uniqueResult();
     }
 
-    public T getBySql(String sql, Map<String, ?> params) {
+    protected T getBySql(String sql, Map<String, ?> params) {
         return (T) this.createSqlQuery(sql, this.entityClass, params).uniqueResult();
     }
     //*********************************************************pageBySql*******************************************************************************************************************************
 
-    public PageObject<T> pageBySql(String sql, Integer pageSize, Integer pageIndex) {
+    protected PageObject<T> pageBySql(String sql, Integer pageSize, Integer pageIndex) {
         String countSql = this.generateCountSql(sql);
         return this.pageBySql(sql, countSql, pageSize, pageIndex);
     }
 
-    public PageObject<T> pageBySql(String sql, String countSql, Integer pageSize, Integer pageIndex) {
+    protected PageObject<T> pageBySql(String sql, String countSql, Integer pageSize, Integer pageIndex) {
         NativeQuery<T> sqlQuery = (NativeQuery<T>) this.createSqlQuery(sql, this.entityClass);
         long count = this.count(countSql);
         List<T> list = (List<T>) this.pageData(sqlQuery, pageSize, pageIndex);
         return new PageObject<>(count, list);
     }
 
-    public PageObject<T> pageBySql(String sql, Integer pageSize, Integer pageIndex, Object... params) {
+    protected PageObject<T> pageBySql(String sql, Integer pageSize, Integer pageIndex, Object... params) {
         String countSql = this.generateCountSql(sql);
         return this.pageBySql(sql, countSql, pageSize, pageIndex, params);
     }
 
-    public PageObject<T> pageBySql(String sql, String countSql, Integer pageSize, Integer pageIndex, Object... params) {
+    protected PageObject<T> pageBySql(String sql, String countSql, Integer pageSize, Integer pageIndex, Object... params) {
         NativeQuery<T> sqlQuery = (NativeQuery<T>) this.createSqlQuery(sql, this.entityClass, params);
         long count = this.count(countSql, params);
         List<T> list = (List<T>) this.pageData(sqlQuery, pageSize, pageIndex);
         return new PageObject<>(count, list);
     }
 
-    public PageObject<T> pageBySql(String sql, Integer pageSize, Integer pageIndex, Map<String, ?> params) {
+    protected PageObject<T> pageBySql(String sql, Integer pageSize, Integer pageIndex, Map<String, ?> params) {
         String countSql = this.generateCountSql(sql);
         return this.pageBySql(sql, countSql, pageSize, pageIndex, params);
     }
 
-    public PageObject<T> pageBySql(String sql, String countSql, Integer pageSize, Integer pageIndex, Map<String, ?> params) {
+    protected PageObject<T> pageBySql(String sql, String countSql, Integer pageSize, Integer pageIndex, Map<String, ?> params) {
         NativeQuery<T> sqlQuery = (NativeQuery<T>) this.createSqlQuery(sql, this.entityClass, params);
         long count = this.count(countSql, params);
         List<T> list = (List<T>) this.pageData(sqlQuery, pageSize, pageIndex);
@@ -205,15 +205,15 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
     }
     //*********************************************************findBySql*******************************************************************************************************************************
 
-    public List<T> findBySql(String sql) {
+    protected List<T> findBySql(String sql) {
         return (List<T>) this.createSqlQuery(sql, this.entityClass).list();
     }
 
-    public List<T> findBySql(String sql, Object... params) {
+    protected List<T> findBySql(String sql, Object... params) {
         return (List<T>) this.createSqlQuery(sql, this.entityClass, params).list();
     }
 
-    public List<T> findBySql(String sql, Map<String, ?> params) {
+    protected List<T> findBySql(String sql, Map<String, ?> params) {
         return (List<T>) this.createSqlQuery(sql, this.entityClass, params).list();
     }
 
@@ -227,49 +227,49 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
 
     //*********************************************************getMapBySql*******************************************************************************************************************************
 
-    public Map<String, Object> getMapBySql(String sql) {
+    protected Map<String, Object> getMapBySql(String sql) {
         return (Map<String, Object>) this.createSqlQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).uniqueResult();
     }
 
-    public Map<String, Object> getMapBySql(String sql, Object... params) {
+    protected Map<String, Object> getMapBySql(String sql, Object... params) {
         return (Map<String, Object>) this.createSqlQuery(sql, params).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).uniqueResult();
     }
 
-    public Map<String, Object> getMapBySql(String sql, Map<String, ?> params) {
+    protected Map<String, Object> getMapBySql(String sql, Map<String, ?> params) {
         return (Map<String, Object>) this.createSqlQuery(sql, params).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).uniqueResult();
     }
     //*********************************************************pageMapBySql*******************************************************************************************************************************
 
-    public PageObject<Map<String, Object>> pageMapBySql(String sql, Integer pageSize, Integer pageIndex) {
+    protected PageObject<Map<String, Object>> pageMapBySql(String sql, Integer pageSize, Integer pageIndex) {
         String countSql = this.generateCountSql(sql);
         return this.pageMapBySql(sql, countSql, pageSize, pageIndex);
     }
 
-    public PageObject<Map<String, Object>> pageMapBySql(String sql, String countSql, Integer pageSize, Integer pageIndex) {
+    protected PageObject<Map<String, Object>> pageMapBySql(String sql, String countSql, Integer pageSize, Integer pageIndex) {
         Query<?> sqlQuery = this.createSqlQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         long count = this.count(countSql);
         List<Map<String, Object>> list = (List<Map<String, Object>>) this.pageData(sqlQuery, pageSize, pageIndex);
         return new PageObject<>(count, list);
     }
 
-    public PageObject<Map<String, Object>> pageMapBySql(String sql, Integer pageSize, Integer pageIndex, Object... params) {
+    protected PageObject<Map<String, Object>> pageMapBySql(String sql, Integer pageSize, Integer pageIndex, Object... params) {
         String countSql = this.generateCountSql(sql);
         return this.pageMapBySql(sql, countSql, pageSize, pageIndex, params);
     }
 
-    public PageObject<Map<String, Object>> pageMapBySql(String sql, String countSql, Integer pageSize, Integer pageIndex, Object... params) {
+    protected PageObject<Map<String, Object>> pageMapBySql(String sql, String countSql, Integer pageSize, Integer pageIndex, Object... params) {
         Query<?> sqlQuery = this.createSqlQuery(sql, params).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         long count = this.count(countSql, params);
         List<Map<String, Object>> list = (List<Map<String, Object>>) this.pageData(sqlQuery, pageSize, pageIndex);
         return new PageObject<>(count, list);
     }
 
-    public PageObject<Map<String, Object>> pageMapBySql(String sql, Integer pageSize, Integer pageIndex, Map<String, ?> params) {
+    protected PageObject<Map<String, Object>> pageMapBySql(String sql, Integer pageSize, Integer pageIndex, Map<String, ?> params) {
         String countSql = this.generateCountSql(sql);
         return this.pageMapBySql(sql, countSql, pageSize, pageIndex, params);
     }
 
-    public PageObject<Map<String, Object>> pageMapBySql(String sql, String countSql, Integer pageSize, Integer pageIndex, Map<String, ?> params) {
+    protected PageObject<Map<String, Object>> pageMapBySql(String sql, String countSql, Integer pageSize, Integer pageIndex, Map<String, ?> params) {
         Query<?> sqlQuery = this.createSqlQuery(sql, params).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         long count = this.count(countSql, params);
         List<Map<String, Object>> list = (List<Map<String, Object>>) this.pageData(sqlQuery, pageSize, pageIndex);
@@ -278,62 +278,62 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
 
     //*********************************************************findMapBySql*******************************************************************************************************************************
 
-    public List<Map<String, Object>> findMapBySql(String sql) {
+    protected List<Map<String, Object>> findMapBySql(String sql) {
         return (List<Map<String, Object>>) this.createSqlQuery(sql).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
     }
 
-    public List<Map<String, Object>> findMapBySql(String sql, Object... params) {
+    protected List<Map<String, Object>> findMapBySql(String sql, Object... params) {
         return (List<Map<String, Object>>) this.createSqlQuery(sql, params).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
     }
 
-    public List<Map<String, Object>> findMapBySql(String sql, Map<String, ?> params) {
+    protected List<Map<String, Object>> findMapBySql(String sql, Map<String, ?> params) {
         return (List<Map<String, Object>>) this.createSqlQuery(sql, params).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP).list();
     }
     //*********************************************************findStringBySql*******************************************************************************************************************************
 
-    public List<String> findStringBySql(String sql) {
+    protected List<String> findStringBySql(String sql) {
         return ((NativeQuery<String>) this.createSqlQuery(sql)).list();
     }
 
-    public List<String> findStringBySql(String sql, Object... params) {
+    protected List<String> findStringBySql(String sql, Object... params) {
         return ((NativeQuery<String>) this.createSqlQuery(sql, params)).list();
     }
 
-    public List<String> findStringBySql(String sql, Map<String, ?> params) {
+    protected List<String> findStringBySql(String sql, Map<String, ?> params) {
         return ((NativeQuery<String>) this.createSqlQuery(sql, params)).list();
     }
     //*********************************************************pageEntityBySql*******************************************************************************************************************************
 
-    public <E> PageObject<E> pageEntityBySql(String sql, Class<E> entityClass, Integer pageSize, Integer pageIndex) {
+    protected <E> PageObject<E> pageEntityBySql(String sql, Class<E> entityClass, Integer pageSize, Integer pageIndex) {
         String countSql = this.generateCountSql(sql);
         return this.pageEntityBySql(sql, countSql, entityClass, pageSize, pageIndex);
     }
 
-    public <E> PageObject<E> pageEntityBySql(String sql, String countSql, Class<E> entityClass, Integer pageSize, Integer pageIndex) {
+    protected <E> PageObject<E> pageEntityBySql(String sql, String countSql, Class<E> entityClass, Integer pageSize, Integer pageIndex) {
         Query<?> sqlQuery = this.createSqlQuery(sql).addEntity(entityClass);
         long count = this.count(countSql);
         List<E> list = (List<E>) this.pageData(sqlQuery, pageSize, pageIndex);
         return new PageObject<>(count, list);
     }
 
-    public <E> PageObject<E> pageEntityBySql(String sql, Class<E> entityClass, Integer pageSize, Integer pageIndex, Object... params) {
+    protected <E> PageObject<E> pageEntityBySql(String sql, Class<E> entityClass, Integer pageSize, Integer pageIndex, Object... params) {
         String countSql = this.generateCountSql(sql);
         return this.pageEntityBySql(sql, countSql, entityClass, pageSize, pageIndex, params);
     }
 
-    public <E> PageObject<E> pageEntityBySql(String sql, String countSql, Class<E> entityClass, Integer pageSize, Integer pageIndex, Object... params) {
+    protected <E> PageObject<E> pageEntityBySql(String sql, String countSql, Class<E> entityClass, Integer pageSize, Integer pageIndex, Object... params) {
         Query<?> sqlQuery = this.createSqlQuery(sql, params).addEntity(entityClass);
         long count = this.count(countSql, params);
         List<E> list = (List<E>) this.pageData(sqlQuery, pageSize, pageIndex);
         return new PageObject<>(count, list);
     }
 
-    public <E> PageObject<E> pageEntityBySql(String sql, Class<E> entityClass, Integer pageSize, Integer pageIndex, Map<String, ?> params) {
+    protected <E> PageObject<E> pageEntityBySql(String sql, Class<E> entityClass, Integer pageSize, Integer pageIndex, Map<String, ?> params) {
         String countSql = this.generateCountSql(sql);
         return this.pageEntityBySql(sql, countSql, entityClass, pageSize, pageIndex, params);
     }
 
-    public <E> PageObject<E> pageEntityBySql(String sql, String countSql, Class<E> entityClass, Integer pageSize, Integer pageIndex, Map<String, ?> params) {
+    protected <E> PageObject<E> pageEntityBySql(String sql, String countSql, Class<E> entityClass, Integer pageSize, Integer pageIndex, Map<String, ?> params) {
         Query<?> sqlQuery = this.createSqlQuery(sql, params).addEntity(entityClass);
         long count = this.count(countSql, params);
         List<E> list = (List<E>) this.pageData(sqlQuery, pageSize, pageIndex);
@@ -342,15 +342,15 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
 
     //*********************************************************findEntityBySql*******************************************************************************************************************************
 
-    public <E> List<E> findEntityBySql(String sql, Class<E> entityClass) {
+    protected <E> List<E> findEntityBySql(String sql, Class<E> entityClass) {
         return (List<E>) this.createSqlQuery(sql).addEntity(entityClass).list();
     }
 
-    public <E> List<E> findEntityBySql(String sql, Class<E> entityClass, Object... params) {
+    protected <E> List<E> findEntityBySql(String sql, Class<E> entityClass, Object... params) {
         return (List<E>) this.createSqlQuery(sql, params).addEntity(entityClass).list();
     }
 
-    public <E> List<E> findEntityBySql(String sql, Class<E> entityClass, Map<String, ?> params) {
+    protected <E> List<E> findEntityBySql(String sql, Class<E> entityClass, Map<String, ?> params) {
         return (List<E>) this.createSqlQuery(sql, params).addEntity(entityClass).list();
     }
 
@@ -364,28 +364,28 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
 
     //*********************************************************getByHql*******************************************************************************************************************************
 
-    public T getByHql(String hql) {
+    protected T getByHql(String hql) {
         return ((Query<T>) this.createHqlQuery(hql, this.entityClass)).uniqueResult();
     }
 
-    public T getByHql(String hql, Map<String, ?> params) {
+    protected T getByHql(String hql, Map<String, ?> params) {
         return ((Query<T>) this.createHqlQuery(hql, this.entityClass, params)).uniqueResult();
     }
 
-    public T getByHql(String hql, Object... params) {
+    protected T getByHql(String hql, Object... params) {
         return ((Query<T>) this.createHqlQuery(hql, this.entityClass, params)).uniqueResult();
     }
     //*********************************************************findByHql*******************************************************************************************************************************
 
-    public List<T> findByHql(String hql) {
+    protected List<T> findByHql(String hql) {
         return ((Query<T>) this.createHqlQuery(hql, this.entityClass)).list();
     }
 
-    public List<T> findByHql(String hql, Map<String, ?> params) {
+    protected List<T> findByHql(String hql, Map<String, ?> params) {
         return ((Query<T>) this.createHqlQuery(hql, this.entityClass, params)).list();
     }
 
-    public List<T> findByHql(String hql, Object... params) {
+    protected List<T> findByHql(String hql, Object... params) {
         return ((Query<T>) this.createHqlQuery(hql, this.entityClass, params)).list();
     }
 
@@ -447,28 +447,28 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
 
     //*********************************************************count*******************************************************************************************************************************
 
-    public long count(String sql) {
+    protected long count(String sql) {
         return ((NativeQuery<BigInteger>) this.createSqlQuery(sql)).uniqueResult().longValue();
     }
 
-    public long count(String sql, Map<String, ?> params) {
+    protected long count(String sql, Map<String, ?> params) {
         return ((NativeQuery<BigInteger>) this.createSqlQuery(sql, params)).uniqueResult().longValue();
     }
 
-    public long count(String sql, Object... params) {
+    protected long count(String sql, Object... params) {
         return ((NativeQuery<BigInteger>) this.createSqlQuery(sql, params)).uniqueResult().longValue();
     }
     //*********************************************************executeBySql*******************************************************************************************************************************
 
-    public int executeBySql(String sql) {
+    protected int executeBySql(String sql) {
         return this.createSqlQuery(sql).executeUpdate();
     }
 
-    public int executeBySql(String sql, Map<String, ?> params) {
+    protected int executeBySql(String sql, Map<String, ?> params) {
         return this.createSqlQuery(sql, params).executeUpdate();
     }
 
-    public int executeBySql(String sql, Object... params) {
+    protected int executeBySql(String sql, Object... params) {
         return this.createSqlQuery(sql, params).executeUpdate();
     }
 
