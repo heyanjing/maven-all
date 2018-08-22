@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.time.LocalDateTime;
 
 /**
  * Created by heyanjing on 2018/8/20 17:58.
@@ -21,5 +22,6 @@ public abstract class BaseEntityWithStringId extends BaseEntity<String> {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(unique = true)
     protected String id;
+    protected LocalDateTime creatDateTime;
     protected Integer state;
 }

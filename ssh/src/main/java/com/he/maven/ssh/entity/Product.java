@@ -21,9 +21,9 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Product extends BaseEntityWithStringId{
     private String personId;
+    private String name;
     private Double price;
     private Long quantity;
     private Integer showOrder;
-    private String name;
 
 }
