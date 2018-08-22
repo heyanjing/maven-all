@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <task:annotation-driven executor="executor" scheduler="scheduler"/>
+    <task:executor id="executor" pool-size="10-20" queue-capacity="100" keep-alive="120"/>
+    <task:scheduler id="scheduler" pool-size="10"/>
+
+    <!--引入本项目中的任务  也可以在SelfTask类上加@Component自动扫描
+    <bean id="selfTask" class="com.he.maven.ssh.task.SelfTask"/>
+    -->
+
+    <!--将task项目中的定时任务引入进来
+    <bean id="dataSourceTask" class="com.he.maven.task.datasource.DataSourceTask">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    -->
+
+</beans>
