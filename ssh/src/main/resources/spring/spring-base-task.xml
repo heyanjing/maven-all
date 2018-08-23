@@ -4,17 +4,24 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
     <task:annotation-driven executor="executor" scheduler="scheduler"/>
-    <task:executor id="executor" pool-size="10-20" queue-capacity="100" keep-alive="120"/>
+    <!--https://www.imooc.com/article/5887 执行器 task:executor会注册一个ThreadPoolTaskExecutor执行器，我们可以使用它的相关属性来配置该执行器。 默认情况下执行队列是无限的，可能会导致JVM使用完所有内存。因此我们最好指定一个确定的数值。 还有一个rejection-policy属性，指定执行器队列满时的执行策略：默认是AbortPolicy，直接抛出异常；如果当系统忙时丢弃某些任务是可接受的， 可以使用DiscardPolicy或DiscardOldestPolicy策略；当系统负载较重时还可以使用CallerRunsPolicy， 它不会将任务交给执行器线程，而是让调用者线程来执行该任务。最后一个就是keep-alive属性， 也就是超出线程池数量 线程完成任务之后的存活时间，单位是秒。-->
+    <task:executor id="executor" pool-size="10-20" queue-capacity="100" keep-alive="60"  rejection-policy="ABORT"/>
+    <!--定时器 task:scheduler会注册一个ThreadPoolTaskScheduler定时器，它只有一个属性线程池大小。默认是1，我们需要根据任务的数量指定一个合适的大小。 -->
     <task:scheduler id="scheduler" pool-size="10"/>
 
-    <!--引入本项目中的任务  也可以在SelfTask类上加@Component自动扫描
-    <bean id="selfTask" class="com.he.maven.ssh.task.SelfTask"/>
-    -->
 
-    <!--将task项目中的定时任务引入进来
-    <bean id="dataSourceTask" class="com.he.maven.task.datasource.DataSourceTask">
+    <task:scheduled-tasks>
+        <task:scheduled ref="selfTask" method="test1" cron="*/5 * * * 11 ?"/>
+        <task:scheduled ref="selfTask" method="test2" cron="*/8 * * * 11 ?"/>
+        <task:scheduled ref="dataSourceTask" method="hikari" cron="*/10 * * * 11 ?"/>
+    </task:scheduled-tasks>
+
+
+    <!--引入本项目中的任务  也可以在SelfTask类上加@Component自动扫描 -->
+    <bean id="selfTask" class="com.he.maven.ssh.task.SelfTask"/>
+    <!--将task项目中的定时任务引入进来 -->
+     <bean id="dataSourceTask" class="com.he.maven.task.datasource.DataSourceTask">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    -->
 
 </beans>

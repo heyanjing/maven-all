@@ -4,7 +4,6 @@ import com.zaxxer.hikari.HikariConfigMXBean;
 import com.zaxxer.hikari.HikariDataSource;
 import com.zaxxer.hikari.HikariPoolMXBean;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +19,6 @@ public class DataSourceTask {
         this.dataSource = dataSource;
     }
 
-    @Scheduled(cron = "0/10 * * * * ? ")
     public void hikari() {
         HikariConfigMXBean hikariConfigMXBean = dataSource.getHikariConfigMXBean();
         log.debug("getConnectionTimeout------{}", hikariConfigMXBean.getConnectionTimeout());
