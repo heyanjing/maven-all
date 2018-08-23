@@ -1,11 +1,18 @@
 package com.he.maven.ssh;
 
+import com.he.maven.ssh.entity.Person;
+import com.he.maven.ssh.entity.Product;
 import com.he.maven.ssh.web.dao.ProductDao;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by heyanjing on0018/8/21 10:16.
@@ -18,38 +25,38 @@ public class FrameTest {
     @Autowired
     private ProductDao productDao;
     // // HEWARN: 2018/8/22 18:10 需要打开dao和daoImpl中的注释
-    //@Test
-    //public void saveForBatch() {
-    //    LocalDateTime now = LocalDateTime.now();
-    //
-    //    List<Person> list2 = new ArrayList<>();
-    //    for (int i = 1; i <= 10; i++) {
-    //        //product.setName("name" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
-    //        Person person = new Person();
-    //        person.setName("personName" + i);
-    //        person.setAge(i);
-    //        person.setAddr("地址" + i);
-    //        person.setShowOrder(i);
-    //        person.setState(i);
-    //        person.setCreatDateTime(now.plusHours(i));
-    //        list2.add(person);
-    //    }
-    //    List<String> personIdList = this.productDao.saveForBatch(list2);
-    //    List<Product> list1 = new ArrayList<>();
-    //    for (int i = 1; i <= 10; i++) {
-    //        //product.setName("name" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
-    //        Product product = new Product();
-    //        product.setName("productName" + i);
-    //        product.setPrice(i + 1.0);
-    //        product.setQuantity(i + 1L);
-    //        product.setShowOrder(i);
-    //        product.setState(i);
-    //        product.setPersonId(personIdList.get(0));
-    //        product.setCreatDateTime(now.plusHours(i));
-    //        list1.add(product);
-    //    }
-    //    this.productDao.saveForBatch(list1);
-    //}
+    @Test
+    public void saveForBatch() {
+        LocalDateTime now = LocalDateTime.now();
+
+        List<Person> list2 = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+            //product.setName("name" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+            Person person = new Person();
+            person.setName("personName" + i);
+            person.setAge(i);
+            person.setAddr("地址" + i);
+            person.setShowOrder(i);
+            person.setState(i);
+            person.setCreatDateTime(now.plusHours(i));
+            list2.add(person);
+        }
+        List<String> personIdList = this.productDao.saveForBatch(list2);
+        List<Product> list1 = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+            //product.setName("name" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")));
+            Product product = new Product();
+            product.setName("productName" + i);
+            product.setPrice(i + 1.0);
+            product.setQuantity(i + 1L);
+            product.setShowOrder(i);
+            product.setState(i);
+            product.setPersonId(personIdList.get(0));
+            product.setCreatDateTime(now.plusHours(i));
+            list1.add(product);
+        }
+        this.productDao.saveForBatch(list1);
+    }
     //
     //@Test
     //public void getById() {
