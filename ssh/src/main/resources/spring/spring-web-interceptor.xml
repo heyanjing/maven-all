@@ -6,12 +6,21 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
+            <bean class="com.he.maven.ssh.interceptor.CheckLoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+   <!-- 测试用途
+   <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
             <bean class="com.he.maven.ssh.interceptor.OneInterceptor"/>
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <bean class="com.he.maven.ssh.interceptor.TwoInterceptor"/>
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>-->
 
 </beans>

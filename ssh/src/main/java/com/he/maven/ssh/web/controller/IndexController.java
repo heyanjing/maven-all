@@ -1,6 +1,7 @@
 package com.he.maven.ssh.web.controller;
 
 import com.he.maven.core.bean.PageObject;
+import com.he.maven.core.web.Webs;
 import com.he.maven.ssh.entity.Person;
 import com.he.maven.ssh.entity.Product;
 import com.he.maven.ssh.web.service.ProductService;
@@ -8,10 +9,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -31,10 +37,41 @@ public class IndexController {
 
     @GetMapping(value = {"", "/"})
     public String index() {
-        log.warn("{}","访问index方法");
+        log.warn("{}", "访问index方法");
         return "/index";
     }
 
+    @PostMapping("/login")
+    public String login(String userName, String password, HttpServletRequest request, HttpServletResponse response) {
+        if ("admin".equals(userName) && "admin".equals(password)) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("user", new Person("admin", 28, "重庆", 1));
+            return Webs.redirect("/home/");
+        }
+        return Webs.redirect("/");
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        log.warn("{}",session.getId());
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+           log.info("{}",cookie.getName());
+           log.info("{}",cookie.getValue());
+           log.info("{}",cookie.getComment());
+           log.info("{}",cookie.getDomain());
+           log.info("{}",cookie.getMaxAge());
+           log.info("{}",cookie.getPath());
+           log.info("{}",cookie.getSecure());
+           log.info("{}",cookie.getVersion());
+            if("JSESSIONID".equals(cookie.getName())){
+            }
+        }
+
+        session.removeAttribute("user");
+        return Webs.redirect("/");
+    }
 
     @RequestMapping("/findBySql")
     @ResponseBody
