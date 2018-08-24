@@ -54,18 +54,21 @@ public class IndexController {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        log.warn("{}",session.getId());
+        log.warn("{}", session.getId());
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
-           log.info("{}",cookie.getName());
-           log.info("{}",cookie.getValue());
-           log.info("{}",cookie.getComment());
-           log.info("{}",cookie.getDomain());
-           log.info("{}",cookie.getMaxAge());
-           log.info("{}",cookie.getPath());
-           log.info("{}",cookie.getSecure());
-           log.info("{}",cookie.getVersion());
-            if("JSESSIONID".equals(cookie.getName())){
+            log.info("{}", cookie.getName());
+            log.info("{}", cookie.getValue());
+            log.info("{}", cookie.getComment());
+            log.info("{}", cookie.getDomain());
+            log.info("{}", cookie.getMaxAge());
+            log.info("{}", cookie.getPath());
+            log.info("{}", cookie.getSecure());
+            log.info("{}", cookie.getVersion());
+            if ("JSESSIONID".equals(cookie.getName())) {
+                //删除 session Id
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
             }
         }
 

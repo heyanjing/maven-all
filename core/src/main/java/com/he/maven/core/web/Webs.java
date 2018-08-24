@@ -1,9 +1,12 @@
 package com.he.maven.core.web;
 
+import com.he.maven.core.Json.Jsons;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
@@ -27,6 +30,43 @@ public class Webs {
 
     public static String redirect(String url) {
         return "redirect:" + url;
+    }
+
+    public static boolean isAjaxRequest(HttpServletRequest request) {
+        return (request.getHeader("accept") != null && request.getHeader("accept").contains("application/json")) || (request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").contains("XMLHttpRequest"));
+    }
+
+    private static void setNoCacheHeader(HttpServletResponse response) {
+        response.setHeader("Cache-Control", "no-cache");
+        response.setHeader("Cache-Control", "no-store");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+    }
+
+    public static void writeJsonData(HttpServletResponse response, Object value, int stateCode) throws IOException {
+        PrintWriter writer = null;
+        try {
+            String json = null;
+            if (value != null) {
+                json = Jsons.toJson(value);
+            }
+            response.setCharacterEncoding("utf-8");
+            response.setHeader("Content-Type", "application/json;charset=UTF-8");
+            setNoCacheHeader(response);
+            response.setStatus(stateCode);
+            if (json != null) {
+                writer = response.getWriter();
+                writer.write(json);
+                writer.flush();
+                writer.close();
+            }
+        } catch (IOException e) {
+            throw e;
+        } finally {
+            if (writer != null) {
+                writer.close();
+            }
+        }
     }
 
     /**

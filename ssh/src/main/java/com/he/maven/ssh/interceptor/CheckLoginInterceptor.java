@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 
 /**
  * Created by heyanjing on 2018/8/23 16:34.
@@ -46,22 +47,23 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        //这个方法中进行一些前置初始化操作或者是对当前请求的一个预处理，也可以在这个方法中进行一些判断来决定请求是否要继续进行下去
         //http://192.168.70.110:8080/ssh/
         //<editor-fold desc="Description">
-        log.error(" HTTP/1.1                            {}", request.getProtocol());
-        log.error(" 192.168.70.110                      {}", request.getRemoteAddr());
-        log.error(" 8080                                {}", request.getServerPort());
-        log.error(" /ssh                                {}", request.getContextPath());
-        log.error(" /ssh/findBySql                      {}", request.getRequestURI());
-        log.error(" http://localhost:8080/ssh/findBySql {}", request.getRequestURL());
-        log.error(" a=1&b=2                             {}", request.getQueryString());
-        log.error(" GET                                 {}", request.getMethod());
-        log.error(" UTF-8                               {}", request.getCharacterEncoding());
+        log.debug(" HTTP/1.1                            {}", request.getProtocol());
+        log.debug(" 192.168.70.110                      {}", request.getRemoteAddr());
+        log.debug(" 8080                                {}", request.getServerPort());
+        log.debug(" /ssh                                {}", request.getContextPath());
+        log.debug(" /ssh/findBySql                      {}", request.getRequestURI());
+        log.debug(" http://localhost:8080/ssh/findBySql {}", request.getRequestURL());
+        log.debug(" a=1&b=2                             {}", request.getQueryString());
+        log.debug(" GET                                 {}", request.getMethod());
+        log.debug(" UTF-8                               {}", request.getCharacterEncoding());
         //</editor-fold>
 
         log.warn("{}", "CheckLoginInterceptor---preHandle");
         log.info("{}", handler);
-        if (DEFULT_INDEX.equals(Webs.getRequestPath(request))||DEFULT_LOGIN.equals(Webs.getRequestPath(request))) {
+        if (DEFULT_INDEX.equals(Webs.getRequestPath(request)) || DEFULT_LOGIN.equals(Webs.getRequestPath(request))) {
             //请求首页或登录
             return true;
         }
@@ -71,6 +73,9 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
             //已登录
             return true;
         }
+        if(Webs.isAjaxRequest(request)){
+
+        }
         //重定向到首页
         Webs.redirect(request.getContextPath() + DEFULT_INDEX, response);
         return false;
@@ -78,13 +83,16 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        //主要操作modelAndView
         log.warn("{}", "CheckLoginInterceptor---postHandle");
         log.info("{}", handler);
         log.info("{}", modelAndView);
+        modelAndView.addObject("now", LocalDateTime.now());
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+//        这个方法的主要作用是用于进行资源清理工作的
         log.warn("{}", "CheckLoginInterceptor---afterCompletion");
         log.info("{}", handler);
         log.info("{}", ex);
