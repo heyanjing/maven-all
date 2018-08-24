@@ -1,5 +1,6 @@
 package com.he.maven.ssh.entity;
 
+import com.he.maven.hibernate.entity.BaseEntityWithStringId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

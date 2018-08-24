@@ -1,4 +1,4 @@
-package com.he.maven.ssh.bean;
+package com.he.maven.core.bean;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

@@ -1,10 +1,10 @@
 package com.he.maven.ssh.web.dao.impl;
 
-import com.he.maven.ssh.bean.PageObject;
+import com.he.maven.core.bean.PageObject;
+import com.he.maven.hibernate.dao.impl.DaoImpl;
 import com.he.maven.ssh.entity.Person;
 import com.he.maven.ssh.entity.Product;
 import com.he.maven.ssh.web.dao.ProductDao;
-import com.he.maven.ssh.web.dao.base.impl.DaoImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

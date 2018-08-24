@@ -1,4 +1,4 @@
-package com.he.maven.ssh.bean;
+package com.he.maven.core.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

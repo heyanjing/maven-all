@@ -1,5 +1,6 @@
 package com.he.maven.ssh.entity;
 
+import com.he.maven.hibernate.entity.BaseEntityWithStringId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,7 @@ import javax.persistence.Entity;
 @DynamicUpdate
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product extends BaseEntityWithStringId{
+public class Product extends BaseEntityWithStringId {
     private String personId;
     private String name;
     private Double price;

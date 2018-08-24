@@ -1,9 +1,9 @@
 package com.he.maven.ssh.web.dao;
 
-import com.he.maven.ssh.bean.PageObject;
+import com.he.maven.core.bean.PageObject;
+import com.he.maven.hibernate.dao.Dao;
 import com.he.maven.ssh.entity.Person;
 import com.he.maven.ssh.entity.Product;
-import com.he.maven.ssh.web.dao.base.Dao;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public interface ProductDao extends Dao<Product, String> {
 
     List<Product> findBySql();
 
-    PageObject<Product> pageBySql(Integer pageSize,Integer pageIndex);
+    PageObject<Product> pageBySql(Integer pageSize, Integer pageIndex);
 
     List<Person> findEntityBySql();
 

@@ -1,4 +1,4 @@
-package com.he.maven.ssh.entity;
+package com.he.maven.hibernate.entity;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -11,6 +11,8 @@
     <modules>
         <module>ssh</module>
         <module>task</module>
+        <module>core</module>
+        <module>hibernate</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

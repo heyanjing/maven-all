@@ -1,6 +1,6 @@
 package com.he.maven.ssh.task;
 
-import com.he.maven.ssh.core.Statics;
+import com.he.maven.core.time.Times;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -15,7 +15,7 @@ public class SelfTask {
         //        } catch (InterruptedException e) {
         //            e.printStackTrace();
         //        }
-        log.info(Statics.now() + "       test1每5s执行一次");
+        log.info(Times.now() + "       test1每5s执行一次");
     }
 
     public void test2() {
@@ -24,6 +24,6 @@ public class SelfTask {
         //        } catch (InterruptedException e) {
         //            e.printStackTrace();
         //        }
-        log.info(Statics.now()+ "       test2每8s执行一次");
+        log.info(Times.now()+ "       test2每8s执行一次");
     }
 }

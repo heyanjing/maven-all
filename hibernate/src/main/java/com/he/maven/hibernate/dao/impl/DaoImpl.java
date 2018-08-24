@@ -1,7 +1,7 @@
-package com.he.maven.ssh.web.dao.base.impl;
+package com.he.maven.hibernate.dao.impl;
 
-import com.he.maven.ssh.bean.PageObject;
-import com.he.maven.ssh.web.dao.base.Dao;
+import com.he.maven.hibernate.dao.Dao;
+import com.he.maven.core.bean.PageObject;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,7 +9,6 @@ import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -29,7 +28,6 @@ import java.util.Map;
  * @param <ID> id
  * @author heyanjing
  */
-@Repository
 @Transactional(rollbackFor = RuntimeException.class)
 @Slf4j
 @SuppressWarnings("ALL")

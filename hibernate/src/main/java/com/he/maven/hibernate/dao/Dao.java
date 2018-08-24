@@ -1,4 +1,4 @@
-package com.he.maven.ssh.web.dao.base;
+package com.he.maven.hibernate.dao;
 
 import java.io.Serializable;
 import java.util.List;
@@ -22,6 +22,7 @@ public interface Dao<T, ID extends Serializable> {
 
     /**
      * @param id 实体id
+     * @param entity 实体类
      * @return null 或 实体
      */
     <E> E getEntityById(ID id, Class<E> entity);
@@ -52,7 +53,7 @@ public interface Dao<T, ID extends Serializable> {
     /**
      * 批量保存或更新实体
      *
-     * @param list
+     * @param list 实体集合
      */
     void saveOrUpdateForBatch(List<?> list);
 

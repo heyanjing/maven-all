@@ -1,6 +1,6 @@
-package com.he.maven.ssh.entity;
+package com.he.maven.hibernate.entity;
 
-import com.he.maven.ssh.bean.BaseBean;
+import com.he.maven.core.bean.BaseBean;
 
 import java.io.Serializable;
 

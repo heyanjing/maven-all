@@ -1,6 +1,6 @@
 package com.he.maven.ssh.web.service;
 
-import com.he.maven.ssh.bean.PageObject;
+import com.he.maven.core.bean.PageObject;
 import com.he.maven.ssh.entity.Person;
 import com.he.maven.ssh.entity.Product;
 import com.he.maven.ssh.web.dao.ProductDao;

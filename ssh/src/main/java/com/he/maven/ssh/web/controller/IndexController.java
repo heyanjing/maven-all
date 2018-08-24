@@ -1,6 +1,6 @@
 package com.he.maven.ssh.web.controller;
 
-import com.he.maven.ssh.bean.PageObject;
+import com.he.maven.core.bean.PageObject;
 import com.he.maven.ssh.entity.Person;
 import com.he.maven.ssh.entity.Product;
 import com.he.maven.ssh.web.service.ProductService;
@@ -31,8 +31,10 @@ public class IndexController {
 
     @GetMapping(value = {"", "/"})
     public String index() {
+        log.warn("{}","访问index方法");
         return "/index";
     }
+
 
     @RequestMapping("/findBySql")
     @ResponseBody
