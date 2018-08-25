@@ -24,6 +24,9 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <listener>
+        <listener-class>com.he.maven.ssh.listener.OnlineListener</listener-class>
+    </listener>
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -70,4 +73,8 @@
         <welcome-file>/</welcome-file>
     </welcome-file-list>
     -->
+    <!--配置session失效时间，单位分钟-->
+    <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>
 </web-app>

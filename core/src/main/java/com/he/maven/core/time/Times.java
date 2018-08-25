@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -14,9 +15,16 @@ import java.util.Date;
 public class Times {
 
     private static final String DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME);
 
     public static String now() {
-        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_TIME));
+        return LocalDateTime.now().format(DATE_TIME_FORMATTER);
+    }
+
+    public static String parseMillisecond2LocalDateTime(long millisecond) {
+        Instant instant = Instant.ofEpochSecond(millisecond / 1000);
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneOffset.of("+8"));
+        return localDateTime.format(DATE_TIME_FORMATTER);
     }
 
     public static LocalDateTime parseDate2LocalDateTime(Date date) {

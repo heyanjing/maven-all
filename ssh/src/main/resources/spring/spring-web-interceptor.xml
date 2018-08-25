@@ -3,24 +3,34 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <!--path 路径匹配规则 https://images2015.cnblogs.com/blog/803693/201611/803693-20161128153226974-1358636929.png
+        多个拦截器 执行顺序 https://my.oschina.net/guojiancode/blog/887559
+    -->
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean class="com.he.maven.ssh.interceptor.CheckLoginInterceptor"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/anon/**"/>
+            <bean class="com.he.maven.ssh.interceptor.CheckLoginInterceptor">
+                <property name="index" value="/"/>
+                <property name="allowNum" value="1"/>
+                <property name="kickoutBefore" value="true"/>
+            </bean>
         </mvc:interceptor>
     </mvc:interceptors>
 
 
-   <!-- 测试用途
-   <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.he.maven.ssh.interceptor.OneInterceptor"/>
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="com.he.maven.ssh.interceptor.TwoInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>-->
+    <!-- 测试用途
+    <mvc:interceptors>
+         <mvc:interceptor>
+             <mvc:mapping path="/**"/>
+             <bean class="com.he.maven.ssh.interceptor.OneInterceptor"/>
+         </mvc:interceptor>
+         <mvc:interceptor>
+             <mvc:mapping path="/**"/>
+             <bean class="com.he.maven.ssh.interceptor.TwoInterceptor"/>
+         </mvc:interceptor>
+     </mvc:interceptors>-->
 
 </beans>

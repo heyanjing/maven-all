@@ -1,10 +1,13 @@
 package com.he.maven.ssh.web.controller;
 
 import com.he.maven.core.bean.PageObject;
+import com.he.maven.core.bean.Result;
 import com.he.maven.core.web.Webs;
+import com.he.maven.ssh.Constant;
 import com.he.maven.ssh.entity.Person;
 import com.he.maven.ssh.entity.Product;
 import com.he.maven.ssh.web.service.ProductService;
+import com.he.maven.ssh.web.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -27,52 +31,59 @@ import java.util.List;
 @Slf4j
 @SuppressWarnings({"unused"})
 public class IndexController {
-
-    ProductService productService;
-
     @Autowired
-    public void setProductService(ProductService productService) {
-        this.productService = productService;
-    }
+    ProductService productService;
+    @Autowired
+    UserService userService;
 
     @GetMapping(value = {"", "/"})
-    public String index() {
-        log.warn("{}", "访问index方法");
+    public String index(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (session.getAttribute(Constant.USER_SESSION) != null) {
+            session.invalidate();
+        }
         return "/index";
     }
 
     @PostMapping("/login")
-    public String login(String userName, String password, HttpServletRequest request, HttpServletResponse response) {
-        if ("admin".equals(userName) && "admin".equals(password)) {
-            HttpSession session = request.getSession(true);
-            session.setAttribute("user", new Person("admin", 28, "重庆", 1));
+    public String login(String userName, String password, HttpServletRequest request, HttpServletResponse response, RedirectAttributes attributes) {
+        HttpSession session = request.getSession();
+        Result result = this.userService.login(userName, password, session.getId());
+        if (result.isSuccess()) {
+            session.setAttribute(Constant.USER_SESSION, result.getData());
+            Cookie c = new Cookie("namex", "何彦静");
+            //单位秒
+            c.setMaxAge(10);
+            response.addCookie(c);
             return Webs.redirect("/home/");
         }
+        attributes.addAttribute("msg", result.getMsg());
         return Webs.redirect("/");
     }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        log.warn("{}", session.getId());
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            log.info("{}", cookie.getName());
-            log.info("{}", cookie.getValue());
-            log.info("{}", cookie.getComment());
-            log.info("{}", cookie.getDomain());
-            log.info("{}", cookie.getMaxAge());
-            log.info("{}", cookie.getPath());
-            log.info("{}", cookie.getSecure());
-            log.info("{}", cookie.getVersion());
-            if ("JSESSIONID".equals(cookie.getName())) {
-                //删除 session Id
-                cookie.setMaxAge(0);
-                response.addCookie(cookie);
-            }
-        }
-
-        session.removeAttribute("user");
+        session.invalidate();
+        //Cookie[] cookies = request.getCookies();
+        //for (Cookie cookie : cookies) {
+        //    log.debug("{}", cookie.getName());
+        //    log.debug("{}", cookie.getValue());
+        //    log.debug("{}", cookie.getComment());
+        //    log.debug("{}", cookie.getDomain());
+        //    log.debug("{}", cookie.getMaxAge());
+        //    log.debug("{}", cookie.getPath());
+        //    log.debug("{}", cookie.getSecure());
+        //    log.debug("{}", cookie.getVersion());
+        //    if ("JSESSIONID".equals(cookie.getName())) {
+        //        //删除 session Id
+        //        cookie.setMaxAge(0);
+        //        response.addCookie(cookie);
+        //    }
+        //    //测试用途  删除所有cookie
+        //    cookie.setMaxAge(0);
+        //    response.addCookie(cookie);
+        //}
         return Webs.redirect("/");
     }
 

@@ -1,10 +1,12 @@
 package com.he.maven.core.web;
 
 import com.he.maven.core.Json.Jsons;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -13,8 +15,10 @@ import java.net.URLDecoder;
 /**
  * Created by heyanjing on 2018/8/24 16:04.
  */
+@Slf4j
 public class Webs {
     public static final String DEFAULT_CHARACTER_ENCODING = "UTF-8";
+    public static final String REQUEST_URL = "REQUEST_URL";
 
     public static void forward(String url, HttpServletRequest request, HttpServletResponse response) throws Exception {
         request.getRequestDispatcher(url).forward(request, response);
@@ -67,6 +71,12 @@ public class Webs {
                 writer.close();
             }
         }
+    }
+
+    public static void saveRequest(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        SaveRequest savedRequest = new SaveRequest(request);
+        session.setAttribute(REQUEST_URL, savedRequest);
     }
 
     /**

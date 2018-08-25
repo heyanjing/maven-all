@@ -15,6 +15,10 @@ import java.util.List;
 public interface Dao<T, ID extends Serializable> {
 
     /**
+     * 清除关联
+     */
+    void clear();
+    /**
      * @param id 实体id
      * @return null 或 实体
      */

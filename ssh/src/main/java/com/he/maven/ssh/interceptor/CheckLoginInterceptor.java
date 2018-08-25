@@ -1,7 +1,8 @@
 package com.he.maven.ssh.interceptor;
 
+import com.he.maven.core.web.SaveRequest;
 import com.he.maven.core.web.Webs;
-import com.he.maven.ssh.entity.Person;
+import com.he.maven.ssh.Constant;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.PathMatchingFilter;
@@ -31,18 +32,22 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
     /**
      * 默认的页面
      */
-    private String DEFULT_INDEX = "/";
+    private String index = "/";
     /**
-     * 默认的登录
+     * 允许同时在线人数
      */
-    private String DEFULT_LOGIN = "/login";
+    private Integer allowNum = 1;
+    /**
+     * 踢出前者
+     */
+    private boolean kickoutBefore = true;
 
     public CheckLoginInterceptor() {
         super();
     }
 
     private boolean isLoginRequest(HttpServletRequest req) {
-        return pathsMatch(DEFULT_INDEX, WebUtils.getPathWithinApplication(req));
+        return pathsMatch(index, WebUtils.getPathWithinApplication(req));
     }
 
     @Override
@@ -61,40 +66,51 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
         log.debug(" UTF-8                               {}", request.getCharacterEncoding());
         //</editor-fold>
 
-        log.warn("{}", "CheckLoginInterceptor---preHandle");
-        log.info("{}", handler);
-        if (DEFULT_INDEX.equals(Webs.getRequestPath(request)) || DEFULT_LOGIN.equals(Webs.getRequestPath(request))) {
-            //请求首页或登录
-            return true;
-        }
+        log.debug("{}", "CheckLoginInterceptor---preHandle");
+        log.debug("{}", handler);
+        //if (DEFULT_INDEX.equals(Webs.getRequestPath(request)) || DEFULT_LOGIN.equals(Webs.getRequestPath(request))) {
+        //    //请求首页或登录
+        //    return true;
+        //}
         HttpSession session = request.getSession();
-        Person person = (Person) session.getAttribute("user");
-        if (person != null) {
-            //已登录
+        Object userSession = session.getAttribute(Constant.USER_SESSION);
+        if (userSession != null) {
+            //已登录 查看是否存在保存的请求
+            SaveRequest saveRequest = (SaveRequest) session.getAttribute(Webs.REQUEST_URL);
+            if (saveRequest != null) {
+                String requestUrl = saveRequest.getRequestUrl();
+                session.removeAttribute(Webs.REQUEST_URL);
+                Webs.redirect(requestUrl, response);
+            }
             return true;
         }
-        if(Webs.isAjaxRequest(request)){
-
+        //未登录 ajax请求 返回403
+        if (Webs.isAjaxRequest(request)) {
+            Webs.writeJsonData(response, null, 403);
+            return false;
         }
-        //重定向到首页
-        Webs.redirect(request.getContextPath() + DEFULT_INDEX, response);
+        //未登录 普通请求 保存请求并重定向到首页
+        Webs.saveRequest(request);
+        Webs.redirect(request.getContextPath() + index, response);
         return false;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         //主要操作modelAndView
-        log.warn("{}", "CheckLoginInterceptor---postHandle");
-        log.info("{}", handler);
-        log.info("{}", modelAndView);
-        modelAndView.addObject("now", LocalDateTime.now());
+        log.debug("{}", "CheckLoginInterceptor---postHandle");
+        log.debug("{}", handler);
+        log.debug("{}", modelAndView);
+        if (modelAndView != null) {
+            modelAndView.addObject("now", LocalDateTime.now());
+        }
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-//        这个方法的主要作用是用于进行资源清理工作的
-        log.warn("{}", "CheckLoginInterceptor---afterCompletion");
-        log.info("{}", handler);
-        log.info("{}", ex);
+        //        这个方法的主要作用是用于进行资源清理工作的
+        log.debug("{}", "CheckLoginInterceptor---afterCompletion");
+        log.debug("{}", handler);
+        log.debug("{}", ex);
     }
 }

@@ -72,6 +72,11 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
     }
 
     @Override
+    public void clear() {
+        this.getCurrentSession().clear();
+    }
+
+    @Override
     public T getById(ID id) {
         return this.getCurrentSession().get(this.entityClass, id);
     }
@@ -373,6 +378,7 @@ public class DaoImpl<T, ID extends Serializable> implements Dao<T, ID> {
     protected T getByHql(String hql, Object... params) {
         return ((Query<T>) this.createHqlQuery(hql, this.entityClass, params)).uniqueResult();
     }
+
     //*********************************************************findByHql*******************************************************************************************************************************
     public List<T> findByHql(String hql) {
         return ((Query<T>) this.createHqlQuery(hql, this.entityClass, null)).getResultList();
