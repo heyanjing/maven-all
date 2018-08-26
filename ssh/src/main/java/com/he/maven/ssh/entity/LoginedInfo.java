@@ -11,7 +11,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Entity;
 
 /**
- * Created by heyanjing on 2018/8/20 17:54.
+ * Created by heyanjing on 2018/8/26 1:58.
  */
 @Getter
 @Setter
@@ -20,9 +20,9 @@ import javax.persistence.Entity;
 @DynamicUpdate
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseEntityWithStringId {
-    private String userName;
-    private String password;
-    private Integer isLogined;
+public class LoginedInfo extends BaseEntityWithStringId {
+    private String userId;
+    private String sessionId;
+    private String kickout;
 
 }

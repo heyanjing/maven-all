@@ -38,7 +38,7 @@ public class FrameTest {
             person.setAddr("地址" + i);
             person.setShowOrder(i);
             person.setState(i);
-            person.setCreatDateTime(now.plusHours(i));
+            person.setCreateDateTime(now.plusHours(i));
             list2.add(person);
         }
         List<String> personIdList = this.productDao.saveForBatch(list2);
@@ -52,7 +52,7 @@ public class FrameTest {
             product.setShowOrder(i);
             product.setState(i);
             product.setPersonId(personIdList.get(0));
-            product.setCreatDateTime(now.plusHours(i));
+            product.setCreateDateTime(now.plusHours(i));
             list1.add(product);
         }
         this.productDao.saveForBatch(list1);

@@ -57,7 +57,12 @@ public class IndexController {
             response.addCookie(c);
             return Webs.redirect("/home/");
         }
-        attributes.addAttribute("msg", result.getMsg());
+        //if (result.getCode() == 409) {
+        //    attributes.addAttribute("kickoutInfo", result.getMsg());
+        //} else {
+        //    attributes.addAttribute("msg", result.getMsg());
+        //}
+            attributes.addFlashAttribute("msg", result.getMsg());
         return Webs.redirect("/");
     }
 

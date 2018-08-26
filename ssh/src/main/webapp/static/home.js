@@ -9,7 +9,7 @@ logout.on('click', function () {
 
 var pageSize = 2, pageIndex = 0;
 $('#send').on('click', function () {
-    var tmep=pageIndex++;
+    var tmep = pageIndex++;
     $.ajax({
         cache: false,
         timeout: 5000,
@@ -23,10 +23,23 @@ $('#send').on('click', function () {
         success: function (result) {
             console.log(result);
         },
-        error: function (xhr,textStatus,errorThrown) {
+        error: function (xhr, textStatus, errorThrown) {
             console.log(xhr);
             console.log(textStatus);
             console.log(errorThrown);
+            if (xhr.status === 403) {
+                alert(xhr.responseJSON.msg);
+                location.href = "/ssh/";
+            } else if (xhr.status === 409) {
+                alert(xhr.responseJSON.msg);
+                location.href = "/ssh/";
+            }
         }
     });
 });
+
+var kickoutInfoVal = $('#kickoutInfo').val();
+if (kickoutInfoVal) {
+    alert(kickoutInfoVal);
+    location.href = "/ssh/";
+}

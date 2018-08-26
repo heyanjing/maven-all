@@ -75,6 +75,6 @@
     -->
     <!--配置session失效时间，单位分钟-->
     <session-config>
-        <session-timeout>1</session-timeout>
+        <session-timeout>10</session-timeout>
     </session-config>
 </web-app>

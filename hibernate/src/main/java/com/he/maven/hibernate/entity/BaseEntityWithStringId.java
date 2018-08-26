@@ -22,6 +22,6 @@ public abstract class BaseEntityWithStringId extends BaseEntity<String> {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(unique = true)
     protected String id;
-    protected LocalDateTime creatDateTime;
+    protected LocalDateTime createDateTime;
     protected Integer state;
 }

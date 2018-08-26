@@ -4,6 +4,7 @@ import com.he.maven.core.time.Times;
 import com.he.maven.core.web.Springs;
 import com.he.maven.ssh.Constant;
 import com.he.maven.ssh.entity.User;
+import com.he.maven.ssh.web.dao.LoginInfoDao;
 import com.he.maven.ssh.web.dao.UserDao;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +17,8 @@ import javax.servlet.http.HttpSessionListener;
  */
 @Slf4j
 public class OnlineListener implements HttpSessionListener {
-    private UserDao userDao = null;
+    private static UserDao userDao = null;
+    private static LoginInfoDao loginInfoDao = null;
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
@@ -29,11 +31,18 @@ public class OnlineListener implements HttpSessionListener {
         if (userDao == null) {
             userDao = Springs.getBean("userDaoImpl");
         }
+        if (loginInfoDao == null) {
+            loginInfoDao = Springs.getBean("loginInfoDaoImpl");
+        }
         HttpSession session = se.getSession();
         log.error("销毁session  sessionId:{}    时间:{}", session.getId(), Times.parseMillisecond2LocalDateTime(session.getCreationTime()));
         User user = (User) session.getAttribute(Constant.USER_SESSION);
         if (userDao != null && user != null) {
-            userDao.updateSessionIdAndIsLoginedById(user.getId(), null, null);
+            long l = loginInfoDao.countByUserId(user.getId());
+            loginInfoDao.deleteBySessionId(session.getId());
+            if (l == 1L) {
+                userDao.updateIsLoginedById(user.getId(), null);
+            }
         }
     }
 }

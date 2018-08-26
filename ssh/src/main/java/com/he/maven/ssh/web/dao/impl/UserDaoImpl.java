@@ -23,8 +23,8 @@ public class UserDaoImpl extends DaoImpl<User, String> implements UserDao {
     }
 
     @Override
-    public Integer updateSessionIdAndIsLoginedById(String id, String sessionId, Integer isLogined) {
-        String sql = "update  user set sessionId=?,islogined=? where id=?";
-        return super.executeBySql(sql, sessionId, isLogined, id);
+    public Integer updateIsLoginedById(String id, Integer isLogined) {
+        String sql = "update  user set islogined=? where id=?";
+        return super.executeBySql(sql, isLogined, id);
     }
 }

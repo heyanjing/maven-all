@@ -14,8 +14,6 @@
             <mvc:exclude-mapping path="/anon/**"/>
             <bean class="com.he.maven.ssh.interceptor.CheckLoginInterceptor">
                 <property name="index" value="/"/>
-                <property name="allowNum" value="1"/>
-                <property name="kickoutBefore" value="true"/>
             </bean>
         </mvc:interceptor>
     </mvc:interceptors>

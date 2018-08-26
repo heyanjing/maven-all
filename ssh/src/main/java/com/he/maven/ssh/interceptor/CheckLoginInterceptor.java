@@ -1,10 +1,15 @@
 package com.he.maven.ssh.interceptor;
 
+import com.he.maven.core.bean.Result;
 import com.he.maven.core.web.SaveRequest;
+import com.he.maven.core.web.Springs;
 import com.he.maven.core.web.Webs;
 import com.he.maven.ssh.Constant;
+import com.he.maven.ssh.entity.LoginedInfo;
+import com.he.maven.ssh.web.dao.LoginInfoDao;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.web.filter.PathMatchingFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -33,14 +38,8 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
      * 默认的页面
      */
     private String index = "/";
-    /**
-     * 允许同时在线人数
-     */
-    private Integer allowNum = 1;
-    /**
-     * 踢出前者
-     */
-    private boolean kickoutBefore = true;
+
+    private static LoginInfoDao loginInfoDao = null;
 
     public CheckLoginInterceptor() {
         super();
@@ -68,8 +67,31 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
 
         log.debug("{}", "CheckLoginInterceptor---preHandle");
         log.debug("{}", handler);
-        //if (DEFULT_INDEX.equals(Webs.getRequestPath(request)) || DEFULT_LOGIN.equals(Webs.getRequestPath(request))) {
-        //    //请求首页或登录
+        if (loginInfoDao == null) {
+            loginInfoDao = Springs.getBean("loginInfoDaoImpl");
+        }
+        //if (loginUrl.equals(Webs.getRequestPath(request))) {
+        //    //登录请求 检查是否满足登录人数限制  如果超限怎样的方式踢人
+        //    String userName = request.getParameter("userName");
+        //    String password = request.getParameter("password");
+        //    if (userDao == null) {
+        //        userDao = Springs.getBean("userDaoImpl");
+        //    }
+        //    if (loginedDao == null) {
+        //        loginedDao = Springs.getBean("loginedDaoImpl");
+        //    }
+        //    User user = userDao.getByUserName(userName);
+        //    //已登录
+        //    if (user != null && user.getIsLogined() != null) {
+        //        List<LoginedInfo> loginedList = loginedDao.findByUserId(user.getId());
+        //        //已超限 重定向到登录页并提示
+        //        if(loginedList.size()>=this.allowNum){
+        //
+        //            Webs.writeJsonData(response, Result.failure("登录人数"), 409);
+        //        }else{
+        //
+        //        }
+        //    }
         //    return true;
         //}
         HttpSession session = request.getSession();
@@ -82,11 +104,20 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
                 session.removeAttribute(Webs.REQUEST_URL);
                 Webs.redirect(requestUrl, response);
             }
+            if (Webs.isAjaxRequest(request)) {
+                LoginedInfo logined = loginInfoDao.getBySessionId(session.getId());
+                if (logined != null && StringUtils.isNotBlank(logined.getKickout())) {
+                    //前台js需要给出提示并返回首页
+                    Webs.writeJsonData(response, Result.failure("该账号登录人数已达上线"), 409);
+                    return false;
+                }
+            }
             return true;
         }
         //未登录 ajax请求 返回403
         if (Webs.isAjaxRequest(request)) {
-            Webs.writeJsonData(response, null, 403);
+            //前台js需要处理 返回首页
+            Webs.writeJsonData(response, Result.failure("请重新登录后再操作"), 403);
             return false;
         }
         //未登录 普通请求 保存请求并重定向到首页
@@ -103,6 +134,12 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
         log.debug("{}", modelAndView);
         if (modelAndView != null) {
             modelAndView.addObject("now", LocalDateTime.now());
+            LoginedInfo logined = loginInfoDao.getBySessionId(request.getSession().getId());
+            if (logined != null && StringUtils.isNotBlank(logined.getKickout())) {
+                //前台js需要给出提示
+                //request.getSession().invalidate();
+                modelAndView.addObject("kickoutInfo", "该账号登录人数已达上线");
+            }
         }
     }
 

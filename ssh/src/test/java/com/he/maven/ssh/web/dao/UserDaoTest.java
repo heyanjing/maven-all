@@ -20,8 +20,8 @@ public class UserDaoTest {
 
     @Test
     public void test() {
-        User admin = new User("admin", "admin", null, null);
-        User heyanjing = new User("heyanjing", "admin", null, null);
+        User admin = new User("admin", "admin", null);
+        User heyanjing = new User("heyanjing", "admin", null);
         this.userDao.save(admin);
         this.userDao.save(heyanjing);
     }

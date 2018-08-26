@@ -11,5 +11,5 @@ public interface UserDao extends Dao<User, String> {
 
     User getByUserName(String userName);
 
-    Integer updateSessionIdAndIsLoginedById(String id,String sessionId,Integer isLogined);
+    Integer updateIsLoginedById(String id,Integer isLogined);
 }
