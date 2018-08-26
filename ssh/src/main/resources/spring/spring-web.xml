@@ -20,7 +20,10 @@
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper">
-                    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" p:staticMethod="com.he.maven.core.Json.Jsons.getInstance"/>
+                    <!--https://blog.csdn.net/z28126308/article/details/54988555   Spring XML获取静态方法返回值-->
+                    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+                        <property name="staticMethod" value="com.he.maven.core.Json.Jsons.getInstance"/>
+                    </bean>
                 </property>
                 <property name="supportedMediaTypes">
                     <list>
