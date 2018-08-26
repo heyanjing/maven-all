@@ -4,6 +4,7 @@ import com.he.maven.core.bean.PageObject;
 import com.he.maven.core.bean.Result;
 import com.he.maven.core.web.Webs;
 import com.he.maven.ssh.Constant;
+import com.he.maven.ssh.bean.TestBean;
 import com.he.maven.ssh.entity.Person;
 import com.he.maven.ssh.entity.Product;
 import com.he.maven.ssh.web.service.ProductService;
@@ -114,6 +115,11 @@ public class IndexController {
     @ResponseBody
     public PageObject<Person> pageEntityBySql(@RequestParam(defaultValue = "2") Integer pageSize, @RequestParam(defaultValue = "0") Integer pageIndex) {
         return this.productService.pageEntityBySql(pageSize, pageIndex);
+    }
+    @RequestMapping("/anon/test")
+    @ResponseBody
+    public TestBean test(TestBean bean) {
+        return bean;
     }
 
 }

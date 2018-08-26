@@ -1,8 +1,14 @@
 package com.he.maven.ssh;
 
+import com.he.maven.core.Json.Jsons;
+import com.he.maven.ssh.bean.TestBean;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Created by heyanjing on 2018/8/21 12:50.
@@ -20,11 +26,11 @@ public class SimpleTest {
         String sql3 = "select count(*) from ( select * from product where 1=1 and personId in ( select id from person order by state limit 5) ORDER BY showOrder ) temp";
 
         String s1 = xx(sql1);
-        log.warn("{}",s1);
+        log.warn("{}", s1);
         String s2 = xx(sql2);
-        log.warn("{}",s2);
+        log.warn("{}", s2);
         String s3 = xx(sql3);
-        log.warn("{}",s3);
+        log.warn("{}", s3);
 
     }
 
@@ -60,5 +66,6 @@ public class SimpleTest {
         log.info("{}", "aa");
         log.warn("{}", "aa");
         log.error("{}", "aa");
+        log.info("{}", Jsons.toJson(new TestBean(LocalDateTime.now(), LocalDate.now(), new Date(), new Date(),"")));
     }
 }
