@@ -1,4 +1,4 @@
-<%@page language="java" pageEncoding="UTF-8" %>
+<%@page pageEncoding="UTF-8" %>
 <html>
 <body>
     <h2>Hello World!卧槽</h2>

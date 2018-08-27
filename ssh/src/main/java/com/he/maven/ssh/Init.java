@@ -43,14 +43,13 @@ public class Init {
         //加入全局常量
         if (servletContext != null) {
             String ctx = servletContext.getContextPath();
-            String staticc = "/static";
-            String lib = staticc + "/lib";
+            String staticc = ctx + "/static";
             servletContext.setAttribute("CTX", ctx);
             servletContext.setAttribute("STATIC", staticc);
             servletContext.setAttribute("IMG", staticc + "/img");
             servletContext.setAttribute("JS", staticc + "/js");
             servletContext.setAttribute("CSS", staticc + "/css");
-            servletContext.setAttribute("LIB", lib);
+            servletContext.setAttribute("LIB", staticc + "/lib");
             servletContext.setAttribute("V", Times.nowVersion());
         }
         //生成30位的基础字符
