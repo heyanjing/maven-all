@@ -8,7 +8,9 @@ import com.he.maven.ssh.entity.Product;
 import java.util.List;
 
 /**
- * Created by heyanjing on 2018/8/21 10:02.
+ *
+ * @author heyanjing
+ * @date 2018/8/21 10:02
  */
 
 public interface ProductDao extends Dao<Product, String> {

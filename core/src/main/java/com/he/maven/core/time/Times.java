@@ -15,10 +15,22 @@ import java.util.Date;
 public class Times {
 
     private static final String DATE_TIME = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE = "yyyy-MM-dd";
+    private static final String VERSION_DATE_TIME = "yyyyMMddHHmmss";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME);
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE);
+    private static final DateTimeFormatter VERSION_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(VERSION_DATE_TIME);
 
-    public static String now() {
+    public static String nowDateTime() {
         return LocalDateTime.now().format(DATE_TIME_FORMATTER);
+    }
+
+    public static String nowDate() {
+        return LocalDateTime.now().format(DATE_FORMATTER);
+    }
+
+    public static String nowVersion() {
+        return LocalDateTime.now().format(VERSION_DATE_TIME_FORMATTER);
     }
 
     public static String parseMillisecond2LocalDateTime(long millisecond) {

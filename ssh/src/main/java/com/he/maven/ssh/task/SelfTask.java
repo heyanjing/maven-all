@@ -15,7 +15,7 @@ public class SelfTask {
         //        } catch (InterruptedException e) {
         //            e.printStackTrace();
         //        }
-        log.info(Times.now() + "       test1每5s执行一次");
+        log.info(Times.nowDateTime() + "       test1每5s执行一次");
     }
 
     public void test2() {
@@ -24,6 +24,6 @@ public class SelfTask {
         //        } catch (InterruptedException e) {
         //            e.printStackTrace();
         //        }
-        log.info(Times.now()+ "       test2每8s执行一次");
+        log.info(Times.nowDateTime() + "       test2每8s执行一次");
     }
 }

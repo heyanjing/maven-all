@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
- * Created by heyanjing on 2018/8/26 14:03.
+ * @author heyanjing
+ * @date 2018/8/26 14:03
  */
 @Getter
 @Setter
@@ -19,6 +20,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class TestBean extends BaseBean {
 
+    private static final long serialVersionUID = -3024350689618646889L;
     LocalDateTime ldt;
     LocalDate ld;
     Date d1;

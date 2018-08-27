@@ -26,11 +26,12 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- * Created by heyanjing on 2017/12/16 14:29.
+ *
+ * @author heyanjing
+ * @date 2017/12/16 14:29
  */
 @Controller
 @Slf4j
-@SuppressWarnings({"unused"})
 public class IndexController {
     @Autowired
     ProductService productService;
@@ -40,7 +41,7 @@ public class IndexController {
     @GetMapping(value = {"", "/"})
     public String index(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (session.getAttribute(Constant.USER_SESSION) != null) {
+        if (session.getAttribute(Constant.USER_SESSION_KEY) != null) {
             session.invalidate();
         }
         return "/index";
@@ -51,7 +52,7 @@ public class IndexController {
         HttpSession session = request.getSession();
         Result result = this.userService.login(userName, password, session.getId());
         if (result.isSuccess()) {
-            session.setAttribute(Constant.USER_SESSION, result.getData());
+            session.setAttribute(Constant.USER_SESSION_KEY, result.getData());
             Cookie c = new Cookie("namex", "何彦静");
             //单位秒
             c.setMaxAge(10);

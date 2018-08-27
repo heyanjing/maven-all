@@ -4,7 +4,7 @@
 
 var logout = $('#logout');
 logout.on('click', function () {
-    location.href = '/ssh/logout';
+    location.href = CTX + '/logout';
 });
 
 var pageSize = 2, pageIndex = 0;
@@ -15,7 +15,7 @@ $('#send').on('click', function () {
         timeout: 5000,
         dataType: 'json',
         type: 'post',
-        url: "/ssh/pageBySql",
+        url: CTX + '/pageBySql',
         data: {
             pageSize: pageSize,
             pageIndex: tmep
@@ -29,10 +29,10 @@ $('#send').on('click', function () {
             console.log(errorThrown);
             if (xhr.status === 403) {
                 alert(xhr.responseJSON.msg);
-                location.href = "/ssh/";
+                location.href = CTX + '/';
             } else if (xhr.status === 409) {
                 alert(xhr.responseJSON.msg);
-                location.href = "/ssh/";
+                location.href = CTX + '/';
             }
         }
     });
@@ -41,5 +41,5 @@ $('#send').on('click', function () {
 var kickoutInfoVal = $('#kickoutInfo').val();
 if (kickoutInfoVal) {
     alert(kickoutInfoVal);
-    location.href = "/ssh/";
+    location.href = CTX + '/';
 }

@@ -36,7 +36,7 @@ public class OnlineListener implements HttpSessionListener {
         }
         HttpSession session = se.getSession();
         log.error("销毁session  sessionId:{}    时间:{}", session.getId(), Times.parseMillisecond2LocalDateTime(session.getCreationTime()));
-        User user = (User) session.getAttribute(Constant.USER_SESSION);
+        User user = (User) session.getAttribute(Constant.USER_SESSION_KEY);
         if (userDao != null && user != null) {
             long l = loginInfoDao.countByUserId(user.getId());
             loginInfoDao.deleteBySessionId(session.getId());

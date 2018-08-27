@@ -12,12 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by heyanjing on 2018/8/21 10:02.
+ *
+ * @author heyanjing
+ * @date 2018/8/21 10:02
  */
 
-@Repository
-@Transactional
 @Slf4j
+@Repository
+@Transactional(rollbackFor = Exception.class)
 public class ProductDaoImpl extends DaoImpl<Product, String> implements ProductDao {
 
     @Override

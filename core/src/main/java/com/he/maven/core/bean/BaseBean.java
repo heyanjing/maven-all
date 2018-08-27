@@ -8,10 +8,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.io.Serializable;
 
 public class BaseBean implements Serializable {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = -4123160201391508234L;
 
     @Override
     public String toString() {

@@ -8,12 +8,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created by heyanjing on 2018/8/21 10:02.
+ *
+ * @author heyanjing
+ * @date 2018/8/21 10:02
  */
 
-@Repository
-@Transactional
 @Slf4j
+@Repository
+@Transactional(rollbackFor = Exception.class)
 public class UserDaoImpl extends DaoImpl<User, String> implements UserDao {
 
     @Override

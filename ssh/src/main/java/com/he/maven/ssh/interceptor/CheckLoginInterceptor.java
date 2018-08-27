@@ -95,7 +95,7 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
         //    return true;
         //}
         HttpSession session = request.getSession();
-        Object userSession = session.getAttribute(Constant.USER_SESSION);
+        Object userSession = session.getAttribute(Constant.USER_SESSION_KEY);
         if (userSession != null) {
             //已登录 查看是否存在保存的请求
             SaveRequest saveRequest = (SaveRequest) session.getAttribute(Webs.REQUEST_URL);

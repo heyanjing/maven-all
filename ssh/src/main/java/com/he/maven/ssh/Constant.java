@@ -3,12 +3,14 @@ package com.he.maven.ssh;
 import com.he.maven.core.config.Configuration2;
 
 /**
- * Created by heyanjing on 2018/8/25 10:31.
+ *
+ * @author heyanjing
+ * @date 2018/8/25 10:31
  */
 public interface Constant {
 
-    String USER_SESSION = "user_session";
-
+    boolean APP_DEBUG = Configuration2.getBoolean("app.debug", true);
+    String USER_SESSION_KEY = Configuration2.getString("user_session_key", "user_session_key");
     int USER_ALLOW_NUM = Configuration2.getInteger("user.allow.num", 1);
     boolean USER_KICKOUT_BEFORE = Configuration2.getBoolean("user.kickout.before", true);
 }

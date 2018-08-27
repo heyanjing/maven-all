@@ -6,6 +6,7 @@ import com.he.maven.ssh.entity.LoginedInfo;
 import com.he.maven.ssh.entity.User;
 import com.he.maven.ssh.web.dao.LoginInfoDao;
 import com.he.maven.ssh.web.dao.UserDao;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Created by heyanjing on 2018/8/21 10:14.
+ *
+ * @author heyanjing
+ * @date 2018/8/21 10:14
  */
+@Slf4j
 @Service
 public class UserService {
 

@@ -2,7 +2,7 @@
 <html>
 <body>
     <h2>Hello World!卧槽</h2>
-    <form method="post" action="/ssh/login">
+    <form method="post" action="${CTX}/login">
         用户
         <input type="text" name="userName" value="admin">
         密码
