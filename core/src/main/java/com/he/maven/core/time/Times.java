@@ -29,6 +29,10 @@ public class Times {
         return LocalDateTime.now().format(DATE_FORMATTER);
     }
 
+    public static long nowMilli() {
+        return Instant.now().toEpochMilli();
+    }
+
     public static String nowVersion() {
         return LocalDateTime.now().format(VERSION_DATE_TIME_FORMATTER);
     }

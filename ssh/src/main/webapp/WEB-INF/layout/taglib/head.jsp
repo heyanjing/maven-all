@@ -2,5 +2,5 @@
 <%@include file="/WEB-INF/layout/taglib/jspTaglib.jsp" %>
 <%@include file="/WEB-INF/layout/taglib/meta.jsp" %>
 <%@include file="/WEB-INF/layout/taglib/jsTaglib.jsp" %>
-<script type="text/javascript" src="${JQUERY}/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="${JQUERY}/jquery-1.12.4.min.js?${V}"></script>
 

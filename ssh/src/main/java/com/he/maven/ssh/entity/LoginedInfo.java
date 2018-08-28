@@ -11,7 +11,9 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Entity;
 
 /**
- * Created by heyanjing on 2018/8/26 1:58.
+ *
+ * @author heyanjing
+ * @date 2018/8/26 1:58
  */
 @Getter
 @Setter
@@ -21,6 +23,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginedInfo extends BaseEntityWithStringId {
+    private static final long serialVersionUID = 319220805003510993L;
     private String userId;
     private String sessionId;
     private String kickout;

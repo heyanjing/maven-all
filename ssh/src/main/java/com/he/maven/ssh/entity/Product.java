@@ -11,7 +11,9 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Entity;
 
 /**
- * Created by heyanjing on 2018/8/20 17:54.
+ *
+ * @author heyanjing
+ * @date 2018/8/20 17:54
  */
 @Getter
 @Setter
@@ -21,6 +23,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product extends BaseEntityWithStringId {
+    private static final long serialVersionUID = -3406364290774499120L;
     private String personId;
     private String name;
     private Double price;

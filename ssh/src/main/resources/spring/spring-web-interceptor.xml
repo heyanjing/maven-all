@@ -12,6 +12,9 @@
             <mvc:exclude-mapping path="/"/>
             <mvc:exclude-mapping path="/login"/>
             <mvc:exclude-mapping path="/anon/**"/>
+            <!--静态资源-->
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/upload/**"/>
             <bean class="com.he.maven.ssh.interceptor.CheckLoginInterceptor">
                 <property name="index" value="/"/>
             </bean>

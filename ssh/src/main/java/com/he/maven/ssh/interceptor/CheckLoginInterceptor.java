@@ -1,6 +1,7 @@
 package com.he.maven.ssh.interceptor;
 
 import com.he.maven.core.bean.Result;
+import com.he.maven.core.time.Times;
 import com.he.maven.core.web.SaveRequest;
 import com.he.maven.core.web.Springs;
 import com.he.maven.core.web.Webs;
@@ -10,15 +11,16 @@ import com.he.maven.ssh.web.dao.LoginInfoDao;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.web.filter.PathMatchingFilter;
-import org.apache.shiro.web.util.WebUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.Date;
 
 /**
  * Created by heyanjing on 2018/8/23 16:34.
@@ -32,7 +34,7 @@ import java.time.LocalDateTime;
  */
 @Slf4j
 @Setter
-public class CheckLoginInterceptor extends PathMatchingFilter implements HandlerInterceptor {
+public class CheckLoginInterceptor implements HandlerInterceptor {
 
     /**
      * 默认的页面
@@ -40,14 +42,6 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
     private String index = "/";
 
     private static LoginInfoDao loginInfoDao = null;
-
-    public CheckLoginInterceptor() {
-        super();
-    }
-
-    private boolean isLoginRequest(HttpServletRequest req) {
-        return pathsMatch(index, WebUtils.getPathWithinApplication(req));
-    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -70,30 +64,6 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
         if (loginInfoDao == null) {
             loginInfoDao = Springs.getBean("loginInfoDaoImpl");
         }
-        //if (loginUrl.equals(Webs.getRequestPath(request))) {
-        //    //登录请求 检查是否满足登录人数限制  如果超限怎样的方式踢人
-        //    String userName = request.getParameter("userName");
-        //    String password = request.getParameter("password");
-        //    if (userDao == null) {
-        //        userDao = Springs.getBean("userDaoImpl");
-        //    }
-        //    if (loginedDao == null) {
-        //        loginedDao = Springs.getBean("loginedDaoImpl");
-        //    }
-        //    User user = userDao.getByUserName(userName);
-        //    //已登录
-        //    if (user != null && user.getIsLogined() != null) {
-        //        List<LoginedInfo> loginedList = loginedDao.findByUserId(user.getId());
-        //        //已超限 重定向到登录页并提示
-        //        if(loginedList.size()>=this.allowNum){
-        //
-        //            Webs.writeJsonData(response, Result.failure("登录人数"), 409);
-        //        }else{
-        //
-        //        }
-        //    }
-        //    return true;
-        //}
         HttpSession session = request.getSession();
         Object userSession = session.getAttribute(Constant.USER_SESSION_KEY);
         if (userSession != null) {
@@ -133,7 +103,7 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
         log.debug("{}", handler);
         log.debug("{}", modelAndView);
         if (modelAndView != null) {
-            modelAndView.addObject("now", LocalDateTime.now());
+            modelAndView.addObject("now", Times.nowMilli());
             LoginedInfo logined = loginInfoDao.getBySessionId(request.getSession().getId());
             if (logined != null && StringUtils.isNotBlank(logined.getKickout())) {
                 //前台js需要给出提示
@@ -145,7 +115,6 @@ public class CheckLoginInterceptor extends PathMatchingFilter implements Handler
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        //        这个方法的主要作用是用于进行资源清理工作的
         log.debug("{}", "CheckLoginInterceptor---afterCompletion");
         log.debug("{}", handler);
         log.debug("{}", ex);

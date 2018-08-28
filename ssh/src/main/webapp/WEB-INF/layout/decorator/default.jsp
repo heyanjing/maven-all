@@ -1,13 +1,15 @@
-<%@page language="java" pageEncoding="UTF-8" %>
+<%@page pageEncoding="UTF-8" %>
+<%@include file="/WEB-INF/layout/taglib/jspTaglib.jsp" %>
 <!doctype html>
 <html>
 <head>
+    <title><c:if test="${DEBUG}">${consume_times}</c:if><sitemesh:write property='title'/></title>
     <%@include file="/WEB-INF/layout/taglib/head.jsp" %>
-    <title><sitemesh:write property='title'/></title>
     <sitemesh:write property='head'/>
 </head>
 <body>
-    <%-- <div>默认页面body中的内容</div>
-    <a href="${CTX}/logout">退出</a>--%> <sitemesh:write property='body'/>
+    <sitemesh:write property='body'/> <%-- 加入自定义标签，只要页面中有myTag标签就会被装饰
+   <myTag>myTag--default  <sitemesh:write property="myTag"/></myTag>
+    --%>
 </body>
 </html>
