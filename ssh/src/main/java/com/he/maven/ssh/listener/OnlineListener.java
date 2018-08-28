@@ -13,7 +13,10 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 /**
- * Created by heyanjing on 2018/8/25 10:28.
+ *
+ * @author heyanjing
+ * @date 2018/8/25 10:28
+ * 监听用户session销毁时，改变用户的登录信息
  */
 @Slf4j
 public class OnlineListener implements HttpSessionListener {
