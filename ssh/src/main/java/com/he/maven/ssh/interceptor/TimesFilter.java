@@ -66,6 +66,6 @@ public class TimesFilter implements Filter {
         } else {
             chain.doFilter(httpServletRequest, response);
         }
-        log.warn("{}  {}", requestURI, httpServletRequest.getAttribute("consume_times"));
+        log.debug("{}  {}", requestURI, httpServletRequest.getAttribute("consume_times"));
     }
 }

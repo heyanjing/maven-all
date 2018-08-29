@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  */
 @Slf4j
 public class DataSourceTask {
-    HikariDataSource dataSource;
+    private HikariDataSource dataSource;
 
     public void setDataSource(HikariDataSource dataSource) {
         this.dataSource = dataSource;
@@ -35,7 +35,7 @@ public class DataSourceTask {
             log.warn("getIdleConnections------{}", hikariPoolMXBean.getIdleConnections());
             log.debug("getThreadsAwaitingConnection------{}", hikariPoolMXBean.getThreadsAwaitingConnection());
         } else {
-            log.error(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))+"____线程池还未初始化");
+            log.error(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "____线程池还未初始化");
         }
     }
 }

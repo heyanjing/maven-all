@@ -156,6 +156,10 @@ public class Result extends BaseBean {
         return failureWithError(null, errors, msg);
     }
 
+    public static Result failureWithError(Map<String, Object> errors) {
+        return failureWithError(null, errors, null);
+    }
+
     public static Result failureWithError(Integer code, Map<String, Object> errors, String msg) {
         return new Result(code, errors, msg);
     }

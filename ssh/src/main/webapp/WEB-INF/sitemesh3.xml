@@ -25,6 +25,7 @@
         </content-processor>
     -->
     <mapping decorator="/WEB-INF/layout/decorator/default.jsp"/>
+    <mapping path="/" decorator="/WEB-INF/layout/decorator/index/default.jsp"/>
     <content-processor>
         <tag-rule-bundle class="com.he.maven.ssh.tag.MyTag"/>
     </content-processor>

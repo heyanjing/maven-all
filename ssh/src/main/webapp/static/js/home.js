@@ -2,10 +2,6 @@
  * Created by heyanjing on 2018/8/24 17:34.
  */
 console.log(DEBUG)
-var logout = $('#logout');
-logout.on('click', function () {
-    location.href = CTX + '/logout';
-});
 
 var pageSize = 2, pageIndex = 0;
 $('#send').on('click', function () {
@@ -15,7 +11,7 @@ $('#send').on('click', function () {
         timeout: 5000,
         dataType: 'json',
         type: 'post',
-        url: CTX + '/pageBySql',
+        url: CTX + '/home/pageBySql',
         data: {
             pageSize: pageSize,
             pageIndex: tmep

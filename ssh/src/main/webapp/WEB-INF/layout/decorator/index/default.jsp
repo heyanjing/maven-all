@@ -8,16 +8,8 @@
     <sitemesh:write property='head'/>
 </head>
 <body>
-    <a href="javascript:void(0)" id="logout">退出</a>
-    <br>
     <sitemesh:write property='body'/> <%-- 加入自定义标签，只要页面中有myTag标签就会被装饰
    <myTag>myTag--default  <sitemesh:write property="myTag"/></myTag>
     --%>
-    <script>
-        var logout = $('#logout');
-        logout.on('click', function () {
-            location.href = CTX + '/logout';
-        });
-    </script>
 </body>
 </html>

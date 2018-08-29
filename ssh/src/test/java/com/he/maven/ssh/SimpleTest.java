@@ -66,6 +66,6 @@ public class SimpleTest {
         log.info("{}", "aa");
         log.warn("{}", "aa");
         log.error("{}", "aa");
-        log.info("{}", Jsons.toJson(new TestBean(LocalDateTime.now(), LocalDate.now(), new Date(), new Date(),"")));
+        log.info("{}", Jsons.toJson(new TestBean(LocalDateTime.now(), LocalDate.now(), new Date(), new Date())));
     }
 }
