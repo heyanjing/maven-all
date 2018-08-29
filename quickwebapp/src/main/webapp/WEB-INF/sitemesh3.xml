@@ -1,0 +1,29 @@
+<sitemesh>
+    <!--
+        是将原始页面中的内容填充到装饰器页面对应的标签位置
+
+        默认情况下， sitemesh 只对 HTTP 响应头中 Content-Type 为 text/html 的类型进行拦截和装饰，那么如果我们想对其他的页面也进行修饰，我们应该添加更多的响应头：
+        <mime-type>text/html</mime-type>
+        <mime-type>application/vnd.wap.xhtml+xml</mime-type>
+        <mime-type>application/xhtml+xml</mime-type>
+        都没匹配的时候使用的单个装饰器
+        <mapping decorator="/WEB-INF/layout/decorator/default.jsp"/>
+        匹配相应的url的时候使用单个装饰器
+        <mapping path="/*" decorator="/WEB-INF/layout/decorator/default.jsp"/>
+        匹配相应的url的时候使用多个装饰器
+        <mapping>
+            <path>/other/*</path>
+            <decorator>/WEB-INF/layout/decorator/admin/default.jsp</decorator>
+            <decorator>/WEB-INF/layout/decorator/user/default.jsp</decorator>
+        </mapping>
+        匹配相应的url的时候不使用装饰器
+        <mapping path="/javadoc/*" exclue="true"/>
+         自定义 tag 规则
+        <content-processor>
+            <tag-rule-bundle class="com.something.CssCompressingBundle" />
+            <tag-rule-bundle class="com.something.LinkRewritingBundle"/>
+        </content-processor>
+    -->
+    <mapping decorator="/WEB-INF/layout/decorator/default.jsp"/>
+    <mapping path="/" decorator="/WEB-INF/layout/decorator/index/default.jsp"/>
+</sitemesh>
