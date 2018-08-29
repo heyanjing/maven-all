@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <context:component-scan base-package="com.he.maven" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="contentType" value="text/html; charset=UTF-8"/>
+        <property name="prefix" value="/WEB-INF/view"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+
+    <mvc:annotation-driven conversion-service="formatService">
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper">
+                    <!--https://blog.csdn.net/z28126308/article/details/54988555   Spring XML获取静态方法返回值-->
+                    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+                        <property name="staticMethod" value="com.he.maven.core.Json.Jsons.getInstance"/>
+                    </bean>
+                </property>
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <mvc:resources mapping="/static/**" location="/static/"/>
+
+    <!-- formatService和 converterService 作用一样将springmvc的日期字符串请求参数转换为对应的日期对象； 格式转换服务功能相当于实体类上加@DateTimeFormat注解, 这样做的好处在于不用每个类的字段上面都加注解 -->
+    <!-- https://blog.csdn.net/yangshangwei/article/details/79201197   Formatter就像Converter一样，也是将一种类型转换为另外一种类型，但是Formatter的源类型必须是String，而Converter的源类型可以是任意类型。 Formatter更加适合Web层，而Converter则可以在任意层中。 为了转换SpringMVC应用程序中的表单的用户输入，始终应该选择Formatter而不是Converter -->
+    <bean id="formatService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <bean class="com.he.maven.core.time.DateFormatter"/>
+                <bean class="com.he.maven.core.time.LocalDateFormatter"/>
+                <bean class="com.he.maven.core.time.LocalDateTimeFormatter"/>
+            </set>
+        </property>
+    </bean>
+
+</beans>

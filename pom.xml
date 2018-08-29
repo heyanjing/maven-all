@@ -13,6 +13,8 @@
         <module>task</module>
         <module>core</module>
         <module>hibernate</module>
+        <module>quickstart</module>
+        <module>quickwebapp</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
