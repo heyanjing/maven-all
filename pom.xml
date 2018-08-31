@@ -21,7 +21,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <java.jdk.version>1.8</java.jdk.version>
-        <encode.version>UTF-8</encode.version>
+        <encode>UTF-8</encode>
 
 
         <junit.version>4.12</junit.version>
@@ -31,6 +31,7 @@
         <servlet.version>4.0.1</servlet.version>
         <jstl.version>1.2</jstl.version>
         <commons-lang3.version>3.8</commons-lang3.version>
+        <commons-logging.version>1.2</commons-logging.version>
         <httpcore.version>4.4.10</httpcore.version>
         <httpclient.version>4.5.6</httpclient.version>
         <io.version>2.6</io.version>
@@ -106,6 +107,11 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons-logging.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -354,9 +360,23 @@
                 </configuration>
             </plugin>
             <!--tomcat 远程发布插件  https://www.cnblogs.com/guogangj/p/5505228.html  https://blog.csdn.net/a1055186977/article/details/79639606
-                mvn clean tomcat7:deploy
-                mvn clean tomcat7:redeploy
+                mvn clean tomcat7:deploy -Ptest
+                mvn clean tomcat7:redeploy -Ptest
             -->
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat8-maven-plugin</artifactId>
+                <version>3.0-r1756463</version>
+                <configuration>
+                    <url>${tomcat-domain}/manager/text</url>
+                    <username>admin</username>
+                    <password>admin</password>
+                    <update>true</update>
+                    <path>${app}</path>
+                    <uriEncoding>${encode}</uriEncoding>
+                    <server>tomcat8</server>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
@@ -375,7 +395,9 @@
                     <username>admin</username>
                     <password>admin</password>
                     <update>true</update>
-                    <path>/${project.artifactId}</path>
+                    <path>${app}</path>
+                    <uriEncoding>${encode}</uriEncoding>
+                    <server>tomcat7</server>
                 </configuration>
             </plugin>
             <plugin>
@@ -384,7 +406,7 @@
                 <configuration>
                     <source>${java.jdk.version}</source>
                     <target>${java.jdk.version}</target>
-                    <encoding>${encode.version}</encoding>
+                    <encoding>${encode}</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -447,7 +469,7 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.0.2</version>
                 <configuration>
-                    <encoding>${encode.version}</encoding>
+                    <encoding>${encode}</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -465,5 +487,11 @@
             </plugin>
         </plugins>
     </build>
-
+    <pluginRepositories>
+        <!--tomcat8 插件资源库-->
+        <pluginRepository>
+            <id>alfresco-public</id>
+            <url>https://artifacts.alfresco.com/nexus/content/groups/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
