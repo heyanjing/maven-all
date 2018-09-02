@@ -23,10 +23,15 @@
 
     </Appenders>
     <Loggers>
-
-        <Root level="info">
+        <logger name="jdbc.sqltiming" level="INFO"/>
+        <logger name="jdbc.resultsettable" level="INFO"/>
+        <logger name="jdbc.sqlonly" level="OFF"/>
+        <logger name="jdbc.audit" level="OFF"/>
+        <logger name="jdbc.resultset" level="OFF"/>
+        <logger name="jdbc.connection" level="OFF"/>
+        <Root level="warn">
             <AppenderRef ref="Console"/>
+            <!--<AppenderRef ref="FILE_NAME"/>-->
         </Root>
-
     </Loggers>
 </Configuration>

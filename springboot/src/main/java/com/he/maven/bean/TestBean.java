@@ -1,15 +1,14 @@
-package com.he.maven.web.bean;
+package com.he.maven.bean;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by heyanjing on 2018/9/1 23:09.
  */
 @Component
-@ConfigurationProperties("test")
-@PropertySource("classpath:config/config.properties")
+@ConfigurationProperties("pocket")
+//@PropertySource("classpath:config/config.properties")
 public class TestBean {
     private String name;
     private Integer age;
