@@ -1,8 +1,6 @@
 package com.he.maven.ssh.web.controller;
 
 import com.he.maven.core.bean.PageObject;
-import com.he.maven.core.bean.Result;
-import com.he.maven.ssh.bean.TestBean;
 import com.he.maven.ssh.entity.Person;
 import com.he.maven.ssh.entity.Product;
 import com.he.maven.ssh.web.service.ProductService;
@@ -26,6 +24,7 @@ import java.util.List;
 public class HomeController {
     @Autowired
     ProductService productService;
+
     @GetMapping("/")
     public String home() {
         return "/home";
@@ -60,20 +59,5 @@ public class HomeController {
     public PageObject<Person> pageEntityBySql(@RequestParam(defaultValue = "2") Integer pageSize, @RequestParam(defaultValue = "0") Integer pageIndex) {
         return this.productService.pageEntityBySql(pageSize, pageIndex);
     }
-
-    @RequestMapping("/anon/test")
-    @ResponseBody
-    public TestBean test(TestBean bean) {
-        return bean;
-    }
     //*********************************************************测试用途*******************************************************************************************************************************
-    /**
-     * @return
-     */
-    @RequestMapping("/result")
-    @ResponseBody
-    public Result result() {
-        return Result.success();
-    }
-
 }
