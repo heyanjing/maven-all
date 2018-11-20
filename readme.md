@@ -24,3 +24,5 @@
 
 ### ssh 是hibernate+spring+spring mvc
 
+### springboot+thymeleaf
+
