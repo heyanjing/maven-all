@@ -1,5 +1,6 @@
 package com.he.maven.web.controller;
 
+import com.he.maven.bean.Test2Bean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,10 @@ public class IndexController {
         list.add("13");
         list.add("14");
         model.addAttribute("list", list);
+        Test2Bean bean = new Test2Bean("何彦静", 29, "xxx");
+        model.addAttribute("bean", bean);
+        model.addAttribute("id", "1");
+
         return "index";
     }
 

@@ -1,6 +1,6 @@
 <!--https://www.cnblogs.com/ityouknow/p/5833560.html-->
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta charset="UTF-8"/>
     <title></title>
@@ -10,5 +10,15 @@
     <ul>
         <li th:each="v,i : ${list}" th:text="${i.index}+'  '+${v}">Hello</li>
     </ul>
+    <div th:object="${bean}">
+        <span th:text="*{name}">姓名</span>
+        <span th:text="*{age}">年龄</span>
+        <span th:text="*{address}">地址</span>
+    </div>
+    <a href="/index/hello" th:href="@{/index/}">连接</a>
+    <a href="/index/hello" th:href="@{/index(id=${id})}">连接</a>
+    <div th:text="2*2">2*2</div>
+    <div th:text="2==2">2==2</div>
+    th
 </body>
 </html>
