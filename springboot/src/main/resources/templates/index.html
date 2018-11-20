@@ -1,10 +1,14 @@
+<!--https://www.cnblogs.com/ityouknow/p/5833560.html-->
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title></title>
 </head>
 <body>
-<h1 th:text="${host}">Hello World</h1>
+    <h1 th:text="${host}">Hello World</h1>
+    <ul>
+        <li th:each="v,i : ${list}" th:text="${i.index}+'  '+${v}">Hello</li>
+    </ul>
 </body>
 </html>

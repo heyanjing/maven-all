@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by heyanjing on 2018/9/1 21:21.
  */
@@ -15,7 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class IndexController {
     @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("host","127.0.0.1");
+        model.addAttribute("host", "127.0.0.1");
+        List<String> list = new ArrayList<>();
+        list.add("11");
+        list.add("12");
+        list.add("13");
+        list.add("14");
+        model.addAttribute("list", list);
         return "index";
     }
 
